@@ -1,28 +1,32 @@
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import Heading from "./Shared/Heading";
 
 const Sponsors = () => {
   return (
-    <div className="bg-light rounded-lg p-14 my-5">
-      <h1 className="font-bold text-secondary text-4xl">
-        Best Supporter of GyanKotha
-      </h1>
+    <div className="bg-bodyColor-dark rounded-lg px-10 py-5">
+      <Heading
+        Heading={"Best Supporter of "}
+        HeadingSpan={"GyanKotha"}
+        subHeading={"Our Sponsors"}
+      ></Heading>
 
       <div>
         <Carousel
           additionalTransfrom={0}
           autoPlaySpeed={3000}
+          arrows={false}
           centerMode={false}
+          autoPlay={true}
           className="py-5 "
           containerClass=""
           dotListClass=""
           draggable
           focusOnSelect={false}
-          infinite={false}
-          itemClass=""
+          infinite={true}
+          itemClass="flex justify-center items-center"
           keyBoardControl
           minimumTouchDrag={80}
-          autoPlay
           pauseOnHover
           renderArrowsWhenDisabled={false}
           renderButtonGroupOutside={false}
@@ -33,7 +37,7 @@ const Sponsors = () => {
                 max: 3000,
                 min: 1024,
               },
-              items: 8,
+              items: 5,
               partialVisibilityGutter: 40,
             },
             mobile: {
@@ -62,50 +66,41 @@ const Sponsors = () => {
           slidesToSlide={1}
           swipeable
         >
-          <img
-            src="https://htmldemo.net/edule/eduLe/assets/images/brand/brand-03.png"
-            alt=""
-          />
-          <img
-            src="https://htmldemo.net/edule/eduLe/assets/images/brand/brand-03.png"
-            alt=""
-          />
-          <img
-            src="https://htmldemo.net/edule/eduLe/assets/images/brand/brand-03.png"
-            alt=""
-          />
-          <img
-            src="https://htmldemo.net/edule/eduLe/assets/images/brand/brand-03.png"
-            alt=""
-          />
-          <img
-            src="https://htmldemo.net/edule/eduLe/assets/images/brand/brand-03.png"
-            alt=""
-          />
-          <img
-            src="https://htmldemo.net/edule/eduLe/assets/images/brand/brand-03.png"
-            alt=""
-          />
-          <img
-            src="https://htmldemo.net/edule/eduLe/assets/images/brand/brand-03.png"
-            alt=""
-          />
-          <img
-            src="https://htmldemo.net/edule/eduLe/assets/images/brand/brand-03.png"
-            alt=""
-          />
-          <img
-            src="https://htmldemo.net/edule/eduLe/assets/images/brand/brand-03.png"
-            alt=""
-          />
-          <img
-            src="https://htmldemo.net/edule/eduLe/assets/images/brand/brand-03.png"
-            alt=""
-          />
-          <img
-            src="https://htmldemo.net/edule/eduLe/assets/images/brand/brand-03.png"
-            alt=""
-          />
+          <div className="no-select w-[100px]">
+            <img
+              src="https://htmldemo.net/edule/eduLe/assets/images/brand/brand-03.png"
+              alt=""
+              className="w-full h-full"
+            />
+          </div>
+          <div className="no-select w-[100px]">
+            <img
+              src="https://assignmentb9a12.web.app/companies/company4.png"
+              alt=""
+              className="w-full h-full"
+            />
+          </div>
+          <div className="no-select w-[100px]">
+            <img
+              src="https://htmldemo.net/edule/eduLe/assets/images/brand/brand-01.png"
+              alt=""
+              className="w-full h-full"
+            />
+          </div>
+          <div className="no-select w-[100px]">
+            <img
+              src="https://htmldemo.net/edule/eduLe/assets/images/brand/brand-02.png"
+              alt=""
+              className="w-full h-full"
+            />
+          </div>
+          <div className="no-select w-[100px]">
+            <img
+              src="https://htmldemo.net/edule/eduLe/assets/images/brand/brand-05.png"
+              alt=""
+              className="w-full h-full"
+            />
+          </div>
         </Carousel>
       </div>
     </div>

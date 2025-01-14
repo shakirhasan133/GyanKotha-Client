@@ -36,3 +36,8 @@ Index {
   -webkit-mask-image: url(../images/headline-curve.svg);
   mask-image: url(../images/headline-curve.svg);
 }
+
+.no-select {
+  user-select: none; /* Prevent text selection */
+  pointer-events: none; /* Disable mouse interactions */
+}

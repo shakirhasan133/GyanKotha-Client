@@ -61,7 +61,7 @@ const Navbar = () => {
         isScrolled
           ? "bg-opacity-95 bg-white"
           : " border rounded-md border-muted text-primary bg-bodyColor container sm:mx-5  md:mx-auto"
-      } text-primary-light bg-primary-darkest shadow-md sticky top-0 z-50 transition duration-300 navbarIndex`}
+      } text-primary-dark bg-bodyColor shadow-md sticky top-0 z-50 transition duration-300 navbarIndex`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-2">
