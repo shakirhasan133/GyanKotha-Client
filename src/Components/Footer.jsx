@@ -3,7 +3,7 @@ import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-r from-primary-dark via-primary to-primary-darkest text-primary-light py-10">
+    <footer className="bg-gradient-to-r from-primary-dark via-primary to-primary-darkest text-primary-light py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -12,19 +12,19 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4 border-b-2 border-primary-light inline-block pb-1">
               About GyanKotha
             </h3>
-            <p className="text-sm text-primary-lightest">
+            <p className="text-sm text-primary-lightest leading-relaxed">
               GyanKotha is your one-stop solution for sharing and discovering
               knowledge. Explore, learn, and grow with our collaborative
               platform.
             </p>
           </div>
 
-          {/* Links Section */}
+          {/* Quick Links */}
           <div>
             <h3 className="text-lg font-semibold mb-4 border-b-2 border-primary-light inline-block pb-1">
               Quick Links
             </h3>
-            <ul className="space-y-2">
+            <ul className="space-y-3">
               <li>
                 <Link
                   to="/"
@@ -60,12 +60,12 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Contact Section */}
+          {/* Contact Info */}
           <div>
             <h3 className="text-lg font-semibold mb-4 border-b-2 border-primary-light inline-block pb-1">
               Contact Us
             </h3>
-            <ul className="space-y-2">
+            <ul className="space-y-3">
               <li className="text-sm">
                 <span className="font-medium">Email:</span>{" "}
                 <a
@@ -91,12 +91,12 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Social Media Section */}
+          {/* Social Media Links */}
           <div>
             <h3 className="text-lg font-semibold mb-4 border-b-2 border-primary-light inline-block pb-1">
               Follow Us
             </h3>
-            <ul className="flex space-x-4">
+            <ul className="flex space-x-5">
               <li>
                 <a
                   href="https://facebook.com"
@@ -104,7 +104,7 @@ const Footer = () => {
                   rel="noopener noreferrer"
                   className="hover:text-primary-light transition duration-200"
                 >
-                  <FaFacebook size={24} />
+                  <FaFacebook size={28} />
                 </a>
               </li>
               <li>
@@ -114,7 +114,7 @@ const Footer = () => {
                   rel="noopener noreferrer"
                   className="hover:text-primary-light transition duration-200"
                 >
-                  <FaTwitter size={24} />
+                  <FaTwitter size={28} />
                 </a>
               </li>
               <li>
@@ -124,7 +124,7 @@ const Footer = () => {
                   rel="noopener noreferrer"
                   className="hover:text-primary-light transition duration-200"
                 >
-                  <FaInstagram size={24} />
+                  <FaInstagram size={28} />
                 </a>
               </li>
               <li>
@@ -134,7 +134,7 @@ const Footer = () => {
                   rel="noopener noreferrer"
                   className="hover:text-primary-light transition duration-200"
                 >
-                  <FaLinkedin size={24} />
+                  <FaLinkedin size={28} />
                 </a>
               </li>
             </ul>
@@ -142,9 +142,11 @@ const Footer = () => {
         </div>
 
         {/* Bottom Section */}
-        <div className="mt-8 border-t border-primary-light pt-4 text-center">
+        <div className="mt-8 border-t border-primary-light pt-6 text-center">
           <p className="text-sm text-primary-lightest">
-            &copy; {new Date().getFullYear()} GyanKotha. All Rights Reserved.
+            &copy; {new Date().getFullYear()}{" "}
+            <span className="font-semibold">GyanKotha</span>. All Rights
+            Reserved.
           </p>
         </div>
       </div>

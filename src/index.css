@@ -3,3 +3,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.css-fix {
+  .react-multi-carousel-arrow {
+    display: none !important;
+  }
+}
+Index {
+  z-index: 9999;
+}
+
+.section-title__title-02 mark::after {
+  content: "";
+  position: absolute;
+  width: 91px;
+  height: 12px;
+  bottom: 0;
+  left: 50%;
+  z-index: -1;
+  transform: translate(-45px);
+  background-color: #ffc221;
+  -webkit-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-image: url(../images/headline-curve.svg);
+  mask-image: url(../images/headline-curve.svg);
+}

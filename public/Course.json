@@ -1,0 +1,66 @@
+[
+  {
+    "title": "Data Science and Machine Learning with Python - Hands On!",
+    "name": "Jason Williams",
+    "email": "jason.williams@example.com",
+    "price": 385.0,
+    "description": "Learn the fundamentals of data science and machine learning in this hands-on course.",
+    "image": "https://via.placeholder.com/400x200?text=Data+Science"
+  },
+  {
+    "title": "Web Development Bootcamp 2025",
+    "name": "Emma Brown",
+    "email": "emma.brown@example.com",
+    "price": 299.0,
+    "description": "Master HTML, CSS, and JavaScript to build responsive websites from scratch.",
+    "image": "https://via.placeholder.com/400x200?text=Web+Development"
+  },
+  {
+    "title": "Full Stack JavaScript Developer Course",
+    "name": "Michael Johnson",
+    "email": "michael.johnson@example.com",
+    "price": 450.0,
+    "description": "Become a full-stack developer with hands-on projects using Node.js, React, and MongoDB.",
+    "image": "https://via.placeholder.com/400x200?text=Full+Stack"
+  },
+  {
+    "title": "Digital Marketing Mastery 2025",
+    "name": "Sophia Lee",
+    "email": "sophia.lee@example.com",
+    "price": 350.0,
+    "description": "Learn SEO, social media marketing, and analytics to excel in digital marketing.",
+    "image": "https://via.placeholder.com/400x200?text=Digital+Marketing"
+  },
+  {
+    "title": "UI/UX Design Principles for Beginners",
+    "name": "Olivia Martin",
+    "email": "olivia.martin@example.com",
+    "price": 275.0,
+    "description": "Explore the principles of UI/UX design and create user-friendly interfaces.",
+    "image": "https://via.placeholder.com/400x200?text=UI+UX+Design"
+  },
+  {
+    "title": "Cloud Computing with AWS",
+    "name": "Daniel Wilson",
+    "email": "daniel.wilson@example.com",
+    "price": 500.0,
+    "description": "Understand cloud computing and deploy scalable applications using AWS.",
+    "image": "https://via.placeholder.com/400x200?text=Cloud+Computing"
+  },
+  {
+    "title": "Cybersecurity Essentials 2025",
+    "name": "Ava Davis",
+    "email": "ava.davis@example.com",
+    "price": 425.0,
+    "description": "Learn to protect systems and networks with this comprehensive cybersecurity course.",
+    "image": "https://via.placeholder.com/400x200?text=Cybersecurity"
+  },
+  {
+    "title": "Artificial Intelligence Fundamentals",
+    "name": "Ethan Moore",
+    "email": "ethan.moore@example.com",
+    "price": 490.0,
+    "description": "Dive into AI concepts and build smart applications with hands-on projects.",
+    "image": "https://via.placeholder.com/400x200?text=Artificial+Intelligence"
+  }
+]
