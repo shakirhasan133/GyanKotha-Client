@@ -15,10 +15,11 @@ const TeacherTestimonialSection = () => {
   }, []);
 
   return (
-    <section className="py-16 Sprinkle">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="bg-light py-10 mt-5">
+      <div className="container mx-auto rounded-lg px-4 sm:px-6 lg:px-8">
         <Heading
-          Heading={"What our Teacher say"}
+          Heading={"What our"}
+          HeadingSpan={"Teacher say"}
           subHeading={"Explore thinking of the teacher about us"}
         ></Heading>
 
