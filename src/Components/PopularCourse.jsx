@@ -3,7 +3,6 @@ import ClassCard from "./ClassCard";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Heading from "./Shared/Heading";
-// import { section } from "motion/react-client";
 
 const PopularCourse = () => {
   const [data, setData] = useState([]);
@@ -15,12 +14,16 @@ const PopularCourse = () => {
   }, []);
 
   return (
-    <section className="bg-light">
-      <div className="container mx-auto rounded-lg p-10 my-5">
+    <section className="bg-light py-10 mt-5">
+      <div className="container mx-auto rounded-lg px-4 sm:px-6 lg:px-8">
+        {/* Heading Component */}
         <Heading
           Heading={"Popular Courses"}
-          subHeading={"Explore our Popular Courses"}
-        ></Heading>
+          subHeading={"Explore our Popular"}
+          HeadingSpan={"Courses"}
+        />
+
+        {/* Carousel Component */}
         <Carousel
           additionalTransfrom={0}
           arrows={false}
@@ -29,55 +32,41 @@ const PopularCourse = () => {
           centerMode={false}
           className="py-10"
           containerClass="carousel-container"
-          dotListClass=""
           draggable
-          focusOnSelect={true}
           infinite
-          itemClass="px-4"
+          itemClass="flex justify-center px-4"
           keyBoardControl
           minimumTouchDrag={80}
           pauseOnHover
-          renderArrowsWhenDisabled={false}
-          renderButtonGroupOutside={false}
-          renderDotsOutside={false}
           responsive={{
             desktop: {
-              breakpoint: {
-                max: 3000,
-                min: 1024,
-              },
+              breakpoint: { max: 3000, min: 1024 },
               items: 3,
-              partialVisibilityGutter: 40,
             },
             tablet: {
-              breakpoint: {
-                max: 1024,
-                min: 464,
-              },
+              breakpoint: { max: 1024, min: 464 },
               items: 2,
-              partialVisibilityGutter: 30,
             },
             mobile: {
-              breakpoint: {
-                max: 464,
-                min: 0,
-              },
+              breakpoint: { max: 464, min: 0 },
               items: 1,
-              partialVisibilityGutter: 20,
             },
           }}
           rewind={false}
-          rewindWithAnimation={false}
-          rtl={false}
-          shouldResetAutoplay
-          showDots
+          showDots={false}
           sliderClass=""
           slidesToSlide={1}
           swipeable
         >
           {data.length > 0 ? (
             data.map((course, index) => (
-              <ClassCard key={index} classData={course} />
+              <div key={index} className="flex justify-center items-center">
+                {/* Ensures consistent card size */}
+                <ClassCard
+                  className="max-w-sm w-full h-72"
+                  classData={course}
+                />
+              </div>
             ))
           ) : (
             <div className="text-center text-gray-500 col-span-3">

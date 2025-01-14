@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 const ClassCard = ({ classData }) => {
   return (
-    <div className="bg-white border rounded-lg p-6 shadow-lg mx-2 min-h-[450px] hover:shadow-xl hover:scale-105 transition-transform duration-300">
+    <div className="bg-white border rounded-lg p-6 shadow-lg mx-auto w-full max-w-[350px] min-h-[450px] hover:shadow-xl hover:scale-105 transition-transform duration-300">
       {/* Course Image */}
       <img
         src={classData.image}
@@ -10,7 +10,7 @@ const ClassCard = ({ classData }) => {
       />
 
       {/* Course Title */}
-      <h3 className="text-xl font-bold text-gray-800 mb-3">
+      <h3 className="text-xl font-bold text-gray-800 mb-3 truncate">
         {classData.title}
       </h3>
 
@@ -22,10 +22,12 @@ const ClassCard = ({ classData }) => {
           className="w-12 h-12 rounded-full border border-gray-300 mr-3"
         />
         <div>
-          <h4 className="text-md font-medium text-gray-800">
+          <h4 className="text-md font-medium text-gray-800 truncate">
             {classData.name}
           </h4>
-          <span className="text-sm text-gray-500">{classData.email}</span>
+          <span className="text-sm text-gray-500 truncate">
+            {classData.email}
+          </span>
         </div>
       </div>
 
