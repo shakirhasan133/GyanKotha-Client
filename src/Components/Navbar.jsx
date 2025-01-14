@@ -81,7 +81,7 @@ const Navbar = () => {
                 {/* <img src={logo} alt="" className="w-9 h-9 rounded-full" /> */}
               </motion.div>
               <span className="text-xl font-bold text-primary-light">
-                WhereIsIt
+                GyanKotha
               </span>
             </Link>
           </motion.div>

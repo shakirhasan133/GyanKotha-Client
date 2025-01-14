@@ -13,6 +13,11 @@ Index {
   z-index: 9999;
 }
 
+.curve {
+  background-image: url("./assets/Curve.svg");
+  background-repeat: no-repeat;
+  background-position: bottom right;
+}
 .section-title__title-02 mark::after {
   content: "";
   position: absolute;

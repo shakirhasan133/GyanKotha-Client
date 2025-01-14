@@ -15,7 +15,7 @@ const TeacherTestimonialSection = () => {
   }, []);
 
   return (
-    <section className="bg-gradient-to-r from-primary-light to-primary-darkest py-16">
+    <section className="bg-gradient-to-r from-primary-light to-primary-darkest py-16 Sprinkle">
       <div className="max-w-7xl mx-auto px-6">
         <Heading
           Heading={"What our Teacher say"}
