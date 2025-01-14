@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { FaSearchLocation } from "react-icons/fa";
+import { FaChalkboardTeacher, FaFileVideo } from "react-icons/fa";
 import { IoMdCloseCircle } from "react-icons/io";
 import { IoHome } from "react-icons/io5";
 import { RiMenu3Fill } from "react-icons/ri";
@@ -80,9 +80,7 @@ const Navbar = () => {
               >
                 {/* <img src={logo} alt="" className="w-9 h-9 rounded-full" /> */}
               </motion.div>
-              <span className="text-xl font-bold text-primary-light">
-                GyanKotha
-              </span>
+              <span className="text-xl font-bold text-primary">GyanKotha</span>
             </Link>
           </motion.div>
 
@@ -120,8 +118,24 @@ const Navbar = () => {
               }
             >
               <div className="flex items-center justify-center gap-1">
-                <FaSearchLocation className="inline"></FaSearchLocation>
-                <span>Lost and found item</span>
+                <FaFileVideo className="inline" />
+                <span>All Classes</span>
+              </div>
+            </NavLink>
+
+            <NavLink
+              to="/allitems"
+              className={({ isActive }) =>
+                `hover:text-primary transition duration-200 ${
+                  isActive
+                    ? "border-b-2 text-white transition-all scale-105"
+                    : ""
+                }`
+              }
+            >
+              <div className="flex items-center justify-center gap-1">
+                <FaChalkboardTeacher className="inline"></FaChalkboardTeacher>
+                <span>Teach on GyanKotha</span>
               </div>
             </NavLink>
           </div>
@@ -280,7 +294,21 @@ const Navbar = () => {
                   }`
                 }
               >
-                Lost & Found Items
+                All Classes
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/allitems"
+                className={({ isActive }) =>
+                  `block px-4 py-2 w-full text-left  ${
+                    isActive
+                      ? "bg-primary-dark text-primary-light transition"
+                      : ""
+                  }`
+                }
+              >
+                Teach on GyanKotha
               </NavLink>
             </li>
             {user ? (
