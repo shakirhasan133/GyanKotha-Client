@@ -7,6 +7,7 @@ import ErrorPage from "./../Pages/ErrorPage";
 import AllClasses from "../Pages/AllClasses";
 import ApplyToTeach from "../Pages/PrivatePage/ApplyToTeach";
 import PrivateRoutes from "./PrivateRoutes";
+import CourseDetails from "../Pages/PrivatePage/CourseDetails";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +37,15 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoutes>
             <ApplyToTeach></ApplyToTeach>,
+          </PrivateRoutes>
+        ),
+      },
+      // Course Details
+      {
+        path: "/Details",
+        element: (
+          <PrivateRoutes>
+            <CourseDetails></CourseDetails>,
           </PrivateRoutes>
         ),
       },
