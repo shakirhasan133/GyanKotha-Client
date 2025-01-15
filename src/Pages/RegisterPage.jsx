@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import Lottie from "lottie-react";
 import RegisterLottie from "../assets/RegisterLottie.json";
 
@@ -6,6 +7,7 @@ import UseAuth from "../Hooks/UseAuth";
 import { useState } from "react";
 import { ImageUpload } from "../Api/utils";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
   const {
@@ -17,6 +19,8 @@ const RegisterPage = () => {
   } = UseAuth();
   const { register, handleSubmit } = useForm();
   const [image, setImage] = useState("");
+  const from = location?.state || "/";
+  const navigate = useNavigate();
 
   //
   const handleImage = async (data) => {
@@ -28,8 +32,7 @@ const RegisterPage = () => {
     const { fullName, email, password } = data;
 
     signUpWithEmail(email, password)
-      .then((data) => {
-        console.log(data.user);
+      .then(() => {
         updateUserData(fullName, image)
           .then(() => {
             Swal.fire({
@@ -39,6 +42,7 @@ const RegisterPage = () => {
               showConfirmButton: false,
               timer: 1500,
             });
+            navigate(from);
           })
           .catch((error) => setError(error));
       })
@@ -50,10 +54,8 @@ const RegisterPage = () => {
   // Handle Login with Google
   const handleLoginWithGoogleEmail = () => {
     signInWithGoogleEmail()
-      .then((res) => {
-        // setUser(res.user);
-        // navigate(from);
-        console.log(res.user);
+      .then(() => {
+        navigate(from);
       })
       .catch((error) => {
         setError(error.message);

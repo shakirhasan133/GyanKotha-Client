@@ -1,9 +1,10 @@
+/* eslint-disable react/no-unescaped-entities */
 import Lottie from "lottie-react";
 import loginLottie from "../assets/loginLottie.json";
 import { useForm } from "react-hook-form";
 import UseAuth from "../Hooks/UseAuth";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const { signInWithEmail, signInWithGoogleEmail } = UseAuth();
@@ -38,7 +39,6 @@ const LoginPage = () => {
   const handleLoginWithGoogleEmail = () => {
     signInWithGoogleEmail()
       .then((res) => {
-        // setUser(res.user);
         navigate(from);
         console.log(res.user);
       })
@@ -101,6 +101,13 @@ const LoginPage = () => {
               Login
             </button>
           </form>
+
+          <div className="flex items-center mt-2 gap-2">
+            <p>Don't have a account?</p>
+            <Link to={"/register"} state={from} className="text-primary">
+              Register
+            </Link>
+          </div>
 
           <div className="mt-6 text-center">
             <p className="text-gray-600 text-sm">Or login with</p>

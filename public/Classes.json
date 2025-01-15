@@ -1,0 +1,67 @@
+[
+  {
+    "_id": "6665eda16bbb113974ff5f05",
+    "name": "Emma Johnson",
+    "email": "emmajohnson@gmail.com",
+    "title": "Full Stack Web Development Bootcamp",
+    "description": "Learn to build modern web applications using HTML, CSS, JavaScript, and back-end technologies like Node.js and MongoDB.",
+    "image": "https://i.ibb.co/pbDP8H3/Full-Stack-Web-Development-Bootcamp.jpg",
+    "price": "299",
+    "status": "approved",
+    "enroll": 4,
+    "assignments": 3,
+    "submitedAssignments": 2
+  },
+  {
+    "_id": "6665eda16bbb113974ff5f06",
+    "name": "Liam Smith",
+    "email": "liamsmith@gmail.com",
+    "title": "Data Science Mastery",
+    "description": "Explore data analysis, machine learning, and visualization techniques to become a proficient data scientist.",
+    "image": "https://i.ibb.co/R04PYXs/Data-Science-Mastery.jpg",
+    "price": "399",
+    "status": "approved",
+    "enroll": 12,
+    "assignments": 5,
+    "submitedAssignments": 4
+  },
+  {
+    "_id": "6665eda16bbb113974ff5f07",
+    "name": "Sophia Brown",
+    "email": "sophiabrown@gmail.com",
+    "title": "Graphic Design Essentials",
+    "description": "Master graphic design with tools like Adobe Photoshop and Illustrator, creating stunning visuals and branding.",
+    "image": "https://i.ibb.co/d66hTL7/Graphic-Design-Essentials.jpg",
+    "price": "199",
+    "status": "approved",
+    "enroll": 8,
+    "assignments": 4,
+    "submitedAssignments": 3
+  },
+  {
+    "_id": "6665eda16bbb113974ff5f08",
+    "name": "Noah Davis",
+    "email": "noahdavis@gmail.com",
+    "title": "AI and Machine Learning Fundamentals",
+    "description": "Dive into artificial intelligence and machine learning concepts, tools, and techniques to build intelligent systems.",
+    "image": "https://i.ibb.co/JdxFBnc/AI-and-Machine-Learning-Fundamentals.jpg",
+    "price": "499",
+    "status": "approved",
+    "enroll": 15,
+    "assignments": 6,
+    "submitedAssignments": 5
+  },
+  {
+    "_id": "6665eda16bbb113974ff5f09",
+    "name": "Olivia Martinez",
+    "email": "oliviamartinez@gmail.com",
+    "title": "Digital Marketing Strategy",
+    "description": "Develop comprehensive digital marketing strategies, including SEO, social media, email marketing, and PPC campaigns.",
+    "image": "https://i.ibb.co/KXkPvRb/Digital-Marketing-Strategy.jpg",
+    "price": "249",
+    "status": "approved",
+    "enroll": 10,
+    "assignments": 3,
+    "submitedAssignments": 3
+  }
+]

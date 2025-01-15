@@ -2,8 +2,6 @@
 import { FaQuoteLeft } from "react-icons/fa";
 
 const TestimonialCard = ({ testimonial }) => {
-  console.log(testimonial);
-
   return (
     <div className="bg-white border rounded-lg shadow-md p-6 text-center hover:shadow-lg transition-all mx-5 py-10">
       <div className="relative mx-auto w-24 h-24 rounded-full overflow-hidden border-4 border-primary mb-4">

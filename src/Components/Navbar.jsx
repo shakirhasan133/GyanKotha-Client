@@ -1,17 +1,18 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { FaChalkboardTeacher, FaFileVideo } from "react-icons/fa";
 import { IoMdCloseCircle } from "react-icons/io";
 import { IoHome } from "react-icons/io5";
 import { RiMenu3Fill } from "react-icons/ri";
 import { Link, NavLink } from "react-router-dom";
-// import { AuthContext } from "../Provider/AuthContext";
-// import Swal from "sweetalert2";
+
+import Swal from "sweetalert2";
 // import logo from "../assets/WhereIsItLogo.png";
 import { motion } from "framer-motion";
+import UseAuth from "../Hooks/UseAuth";
 
 const Navbar = () => {
-  // const { user, signOutUser } = useContext(AuthContext);
-  const user = false;
+  const { user, signOutUser } = UseAuth();
+
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -108,11 +109,11 @@ const Navbar = () => {
             </NavLink>
 
             <NavLink
-              to="/allitems"
+              to="/allClasses"
               className={({ isActive }) =>
                 `hover:text-primary transition duration-200 ${
                   isActive
-                    ? "border-b-2 text-white transition-all scale-105"
+                    ? "border-b-2 text-primary border-primary transition-all scale-105"
                     : ""
                 }`
               }
@@ -124,11 +125,11 @@ const Navbar = () => {
             </NavLink>
 
             <NavLink
-              to="/allitems"
+              to="/applyToTech"
               className={({ isActive }) =>
                 `hover:text-primary transition duration-200 ${
                   isActive
-                    ? "border-b-2 text-white transition-all scale-105"
+                    ? "border-b-2 text-primary border-primary transition-all scale-105"
                     : ""
                 }`
               }

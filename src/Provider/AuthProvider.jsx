@@ -58,34 +58,33 @@ const AuthProvider = ({ children }) => {
   };
 
   //   Observer
-  // useEffect(() => {
-  //   const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-  //     try {
-  //       if (currentUser?.email) {
-  //         await axios.post(
-  //           `${import.meta.env.VITE_API_URL}/JWT`,
-  //           { email: currentUser?.email },
-  //           { withCredentials: true }
-  //         );
-  //         setUser(currentUser);
-  //       } else {
-  //         setUser(currentUser);
-  //         await axios.post(
-  //           `${import.meta.env.VITE_API_URL}/logout`,
-  //           {},import { auth } from './../Firebase/firebase.config';
-
-  //           {
-  //             withCredentials: true,
-  //           }
-  //         );
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //     setLoading(false);
-  //   });
-  //   return () => unsubscribe();
-  // }, []);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      try {
+        if (currentUser?.email) {
+          await axios.post(
+            `${import.meta.env.VITE_API_URL}/JWT`,
+            { email: currentUser?.email },
+            { withCredentials: true }
+          );
+          setUser(currentUser);
+        } else {
+          setUser(currentUser);
+          await axios.post(
+            `${import.meta.env.VITE_API_URL}/logout`,
+            {},
+            {
+              withCredentials: true,
+            }
+          );
+        }
+      } catch (error) {
+        console.log(error);
+      }
+      setLoading(false);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const authInfo = {
     signInWithGoogleEmail,
