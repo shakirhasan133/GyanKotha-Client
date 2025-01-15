@@ -7,11 +7,12 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
-import { AuthContext } from "./AuthContext";
+
 import { auth, provider } from "../Firebase/firebase.config";
 import { useEffect, useState } from "react";
 // import UseAxiosSecure from "../hooks/UseAxiosSecure";
 import axios from "axios";
+import { AuthContext } from "./AuthContext";
 
 // eslint-disable-next-line react/prop-types
 const AuthProvider = ({ children }) => {
@@ -57,33 +58,34 @@ const AuthProvider = ({ children }) => {
   };
 
   //   Observer
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      try {
-        if (currentUser?.email) {
-          await axios.post(
-            `${import.meta.env.VITE_API_URL}/JWT`,
-            { email: currentUser?.email },
-            { withCredentials: true }
-          );
-          setUser(currentUser);
-        } else {
-          setUser(currentUser);
-          await axios.post(
-            `${import.meta.env.VITE_API_URL}/logout`,
-            {},
-            {
-              withCredentials: true,
-            }
-          );
-        }
-      } catch (error) {
-        console.log(error);
-      }
-      setLoading(false);
-    });
-    return () => unsubscribe();
-  }, []);
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+  //     try {
+  //       if (currentUser?.email) {
+  //         await axios.post(
+  //           `${import.meta.env.VITE_API_URL}/JWT`,
+  //           { email: currentUser?.email },
+  //           { withCredentials: true }
+  //         );
+  //         setUser(currentUser);
+  //       } else {
+  //         setUser(currentUser);
+  //         await axios.post(
+  //           `${import.meta.env.VITE_API_URL}/logout`,
+  //           {},import { auth } from './../Firebase/firebase.config';
+
+  //           {
+  //             withCredentials: true,
+  //           }
+  //         );
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //     setLoading(false);
+  //   });
+  //   return () => unsubscribe();
+  // }, []);
 
   const authInfo = {
     signInWithGoogleEmail,

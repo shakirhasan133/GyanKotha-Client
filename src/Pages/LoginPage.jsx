@@ -1,7 +1,52 @@
 import Lottie from "lottie-react";
 import loginLottie from "../assets/loginLottie.json";
+import { useForm } from "react-hook-form";
+import UseAuth from "../Hooks/UseAuth";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
+  const { signInWithEmail, signInWithGoogleEmail } = UseAuth();
+  const [error, setError] = useState("");
+  const from = location?.state || "/";
+  const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
+
+  //
+
+  // Handle Login with Email
+  const handleLogin = (data) => {
+    const { email, password } = data;
+
+    try {
+      signInWithEmail(email, password)
+        .then((data) => {
+          console.log(data);
+          navigate(from);
+        })
+        .catch((err) => {
+          console.log(err);
+          setError(err.message);
+        });
+    } catch (error) {
+      console.log(error);
+      setError(error.message);
+    }
+  };
+
+  // Handle Login with Google
+  const handleLoginWithGoogleEmail = () => {
+    signInWithGoogleEmail()
+      .then((res) => {
+        // setUser(res.user);
+        navigate(from);
+        console.log(res.user);
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-light">
       <div className="bg-white shadow-lg rounded-lg w-full max-w-4xl grid grid-cols-1 md:grid-cols-2">
@@ -16,7 +61,7 @@ const LoginPage = () => {
             Login <span className="text-primary">Now</span>
           </h2>
 
-          <form>
+          <form onSubmit={handleSubmit(handleLogin)}>
             <div className="mb-4">
               <label
                 htmlFor="username"
@@ -25,6 +70,7 @@ const LoginPage = () => {
                 Username or Email
               </label>
               <input
+                {...register("email", { required: true })}
                 type="text"
                 id="username"
                 placeholder="Enter your username or email"
@@ -40,13 +86,14 @@ const LoginPage = () => {
                 Password
               </label>
               <input
+                {...register("password", { required: true })}
                 type="password"
                 id="password"
                 placeholder="Enter your password"
                 className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
               />
             </div>
-
+            <p className="text-error pb-2">{error && error}</p>
             <button
               type="submit"
               className="w-full bg-primary text-white py-2 rounded-md shadow hover:bg-primary-dark transition duration-300"
@@ -58,6 +105,7 @@ const LoginPage = () => {
           <div className="mt-6 text-center">
             <p className="text-gray-600 text-sm">Or login with</p>
             <button
+              onClick={handleLoginWithGoogleEmail}
               type="button"
               className="w-full bg-light border border-primary text-primary py-2 mt-2 rounded-md hover:bg-primary hover:text-white transition duration-300"
             >

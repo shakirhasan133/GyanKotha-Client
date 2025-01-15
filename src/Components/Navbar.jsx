@@ -152,7 +152,7 @@ const Navbar = () => {
                 </Link>
 
                 <Link
-                  to="/signup"
+                  to="/register"
                   className="px-4 py-2 bg-white border border-muted  text-secondary font-medium rounded-md hover:bg-primary hover:text-white transition"
                 >
                   Sign Up
@@ -371,7 +371,7 @@ const Navbar = () => {
                 </Link>
 
                 <Link
-                  to="/signup"
+                  to="/register"
                   className="px-4 py-2 text-primary-light w-full bg-primary-dark font-medium rounded-md  transition"
                 >
                   Sign Up
