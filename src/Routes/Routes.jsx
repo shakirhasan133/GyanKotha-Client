@@ -8,6 +8,7 @@ import AllClasses from "../Pages/AllClasses";
 import ApplyToTeach from "../Pages/PrivatePage/ApplyToTeach";
 import PrivateRoutes from "./PrivateRoutes";
 import CourseDetails from "../Pages/PrivatePage/CourseDetails";
+import Dashboard from "../Layout/Dashboard";
 
 export const router = createBrowserRouter([
   {
@@ -50,5 +51,13 @@ export const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoutes>
+        <Dashboard></Dashboard>
+      </PrivateRoutes>
+    ),
   },
 ]);

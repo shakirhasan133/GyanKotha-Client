@@ -5,7 +5,7 @@ import RegisterLottie from "../assets/RegisterLottie.json";
 import { useForm } from "react-hook-form";
 import UseAuth from "../Hooks/UseAuth";
 import { useState } from "react";
-import { ImageUpload } from "../Api/utils";
+import { ImageUpload, SaveUser } from "../Api/utils";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
@@ -32,19 +32,21 @@ const RegisterPage = () => {
     const { fullName, email, password } = data;
 
     signUpWithEmail(email, password)
-      .then(() => {
-        updateUserData(fullName, image)
-          .then(() => {
-            Swal.fire({
-              position: "center",
-              icon: "success",
-              title: "Sign up Successful",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            navigate(from);
-          })
-          .catch((error) => setError(error));
+      .then(async (data) => {
+        await updateUserData(fullName, image);
+        try {
+          await SaveUser(data.user);
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Sign up Successful",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          navigate(from);
+        } catch (error) {
+          console.log(error.message);
+        }
       })
       .catch((error) => {
         setError(error);
@@ -54,8 +56,13 @@ const RegisterPage = () => {
   // Handle Login with Google
   const handleLoginWithGoogleEmail = () => {
     signInWithGoogleEmail()
-      .then(() => {
-        navigate(from);
+      .then(async (data) => {
+        try {
+          await SaveUser(data.user);
+          navigate(from);
+        } catch (error) {
+          console.log(error.message);
+        }
       })
       .catch((error) => {
         setError(error.message);
