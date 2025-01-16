@@ -27,7 +27,7 @@ const AddClass = () => {
 
   return (
     <div className="bg-bodyColor-light min-h-screen flex justify-center items-center md:py-10">
-      <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-3xl">
+      <div className="bg-bodyColor-dark shadow-md rounded-lg p-8 w-full max-w-3xl">
         <h1 className="text-2xl font-bold text-primary-dark mb-6 text-center">
           Add a New Class
         </h1>
@@ -148,7 +148,7 @@ const AddClass = () => {
           <div>
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-primary-dark to-primary text-white font-medium py-2 rounded-md shadow-btn hover:from-primary hover:to-primary-dark transition-colors"
+              className="w-full bg-gradient-to-r from-primary-dark to-primary text-white font-medium py-2 rounded-md shadow-btn hover:from-primary hover:to-primary-dark transition-all"
             >
               Add Class
             </button>

@@ -6,12 +6,12 @@ const TeacherMenu = () => {
     <div>
       <MenuItem
         label={"Add Class"}
-        address={"/add-class"}
+        address={"/dashboard/add-class"}
         icon={PlayCircleIcon}
       ></MenuItem>
       <MenuItem
         label={"My Class"}
-        address={"/my-class"}
+        address={"/dashboard/my-classes"}
         icon={BookmarkIcon}
       ></MenuItem>
     </div>

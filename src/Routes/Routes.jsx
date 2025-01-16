@@ -14,6 +14,7 @@ import EnrolledClasses from "../Components/Dashboard/Student/EnrolledClasses";
 import Profile from "../Components/Dashboard/Profile/Profile";
 import TeacherRoutes from "./TeacherRoutes";
 import AddClass from "../Components/Dashboard/Teacher/AddClass";
+import MyClasses from "../Components/Dashboard/Teacher/MyClasses";
 
 export const router = createBrowserRouter([
   {
@@ -91,6 +92,14 @@ export const router = createBrowserRouter([
         element: (
           <TeacherRoutes>
             <AddClass></AddClass>
+          </TeacherRoutes>
+        ),
+      },
+      {
+        path: "my-classes",
+        element: (
+          <TeacherRoutes>
+            <MyClasses></MyClasses>
           </TeacherRoutes>
         ),
       },
