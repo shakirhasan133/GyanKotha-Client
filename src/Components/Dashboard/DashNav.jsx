@@ -46,9 +46,9 @@ const DashNav = () => {
   };
 
   return (
-    <div className="bg-primary-darkest sticky top-0 z-50 h-14 shadow-xl">
-      <div className="flex justify-between items-center py-1 px-8">
-        <div className="left-side flex flex-row-reverse items-center justify-center gap-2 ">
+    <div className="bg-primary-darkest  top-0 z-50 h-14 shadow-xl w-full sticky">
+      <div className="flex  h-full justify-between items-center md:py-1 px-3 md:px-8">
+        <div className="left-side flex flex-row-reverse items-center  justify-between md:justify-items-start gap-2 ">
           {/* Logo */}
           <div>
             <h1 className="text-lg font-bold text-[#ECF0F1]">GyanKotha</h1>

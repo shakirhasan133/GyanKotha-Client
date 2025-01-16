@@ -9,13 +9,15 @@ export function SideMenu() {
   // const [role] = useRole();
   const role = "admin";
   return (
-    <Card className="h-[calc(100vh-4rem)] w-full max-w-[20rem] bg-gradient-to-b from-primary-darkest to-primary-dark p-4 fixed">
-      <List>
-        <CommonMenu></CommonMenu>
-        {role === "customer" && <StudentMenu></StudentMenu>}
-        {role === "teacher" && <TeacherMenu></TeacherMenu>}
-        {role === "admin" && <AdminMenu></AdminMenu>}
-      </List>
-    </Card>
+    <div className="w-full ">
+      <Card className="h-[calc(100vh-4rem)] w-9/12 md:w-3/12 bg-gradient-to-b from-primary-darkest to-primary-dark p-4 fixed">
+        <List>
+          <CommonMenu></CommonMenu>
+          {role === "customer" && <StudentMenu></StudentMenu>}
+          {role === "teacher" && <TeacherMenu></TeacherMenu>}
+          {role === "admin" && <AdminMenu></AdminMenu>}
+        </List>
+      </Card>
+    </div>
   );
 }

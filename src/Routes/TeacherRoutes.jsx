@@ -5,6 +5,7 @@ import useRole from "../Hooks/UseRole";
 import LoadingPage from "../Pages/LoadingPage";
 
 const TeacherRoutes = ({ children }) => {
+  // Todo------------------------------------------------
   // const [role, isLoading] = useRole();
   const [isLoading] = useRole();
   const role = "teacher";

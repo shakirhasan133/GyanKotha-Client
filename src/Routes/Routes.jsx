@@ -15,6 +15,10 @@ import Profile from "../Components/Dashboard/Profile/Profile";
 import TeacherRoutes from "./TeacherRoutes";
 import AddClass from "../Components/Dashboard/Teacher/AddClass";
 import MyClasses from "../Components/Dashboard/Teacher/MyClasses";
+import AdminRoute from "./AdminRoute";
+import TeacherRequest from "../Components/Dashboard/Admin/TeacherRequest";
+import AllUsers from "../Components/Dashboard/Admin/AllUsers";
+import AllClassData from "../Components/Dashboard/Admin/AllClassData";
 
 export const router = createBrowserRouter([
   {
@@ -101,6 +105,32 @@ export const router = createBrowserRouter([
           <TeacherRoutes>
             <MyClasses></MyClasses>
           </TeacherRoutes>
+        ),
+      },
+
+      // Admin Routes
+      {
+        path: "teacher-request",
+        element: (
+          <AdminRoute>
+            <TeacherRequest></TeacherRequest>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "users",
+        element: (
+          <AdminRoute>
+            <AllUsers></AllUsers>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "all-class",
+        element: (
+          <AdminRoute>
+            <AllClassData></AllClassData>
+          </AdminRoute>
         ),
       },
     ],

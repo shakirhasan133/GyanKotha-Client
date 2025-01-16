@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "John Doe",
+    "image": "https://via.placeholder.com/150",
+    "experience": 5,
+    "title": "JavaScript Fundamentals",
+    "category": "Programming",
+    "status": "Pending"
+  },
+  {
+    "id": 2,
+    "name": "Jane Smith",
+    "image": "https://via.placeholder.com/150",
+    "experience": 3,
+    "title": "Advanced CSS",
+    "category": "Design",
+    "status": "Pending"
+  }
+]

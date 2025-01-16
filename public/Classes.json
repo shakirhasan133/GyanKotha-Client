@@ -7,7 +7,7 @@
     "description": "Learn to build modern web applications using HTML, CSS, JavaScript, and back-end technologies like Node.js and MongoDB.",
     "image": "https://i.ibb.co/pbDP8H3/Full-Stack-Web-Development-Bootcamp.jpg",
     "price": "299",
-    "status": "approved",
+    "status": "Pending",
     "enroll": 4,
     "assignments": 3,
     "submitedAssignments": 2
@@ -59,7 +59,7 @@
     "description": "Develop comprehensive digital marketing strategies, including SEO, social media, email marketing, and PPC campaigns.",
     "image": "https://i.ibb.co/KXkPvRb/Digital-Marketing-Strategy.jpg",
     "price": "249",
-    "status": "approved",
+    "status": "Pending",
     "enroll": 10,
     "assignments": 3,
     "submitedAssignments": 3

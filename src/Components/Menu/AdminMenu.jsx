@@ -10,18 +10,18 @@ const AdminMenu = () => {
     <div>
       <MenuItem
         label={"Teacher Request"}
-        address={"/teacher-request"}
+        address={"/dashboard/teacher-request"}
         icon={UsersIcon}
       ></MenuItem>
 
       <MenuItem
         label={"Users"}
-        address={"/users"}
+        address={"/dashboard/users"}
         icon={UserGroupIcon}
       ></MenuItem>
       <MenuItem
         label={"All classes"}
-        address={"/all-classes"}
+        address={"/dashboard/all-class"}
         icon={WalletIcon}
       ></MenuItem>
     </div>

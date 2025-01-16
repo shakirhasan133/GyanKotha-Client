@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Alice Johnson",
+    "email": "alice.johnson@example.com",
+    "image": "https://via.placeholder.com/150",
+    "role": "User"
+  },
+  {
+    "id": 2,
+    "name": "Bob Smith",
+    "email": "bob.smith@example.com",
+    "image": "https://via.placeholder.com/150",
+    "role": "Admin"
+  },
+  {
+    "id": 3,
+    "name": "Charlie Brown",
+    "email": "charlie.brown@example.com",
+    "image": "https://via.placeholder.com/150",
+    "role": "User"
+  }
+]

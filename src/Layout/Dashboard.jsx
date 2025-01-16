@@ -11,12 +11,14 @@ const Dashboard = () => {
     <div className="font-primary">
       <DashNav></DashNav>
       <div className="flex font-primary">
-        <div className={`${isSideMenuOpen ? "w-full md:w-3/12" : "w-0"} `}>
+        <div className={`${isSideMenuOpen ? "w-3/12" : "w-0"} `}>
           <div className={` ${isSideMenuOpen ? "block" : "hidden "}`}>
             <SideMenu></SideMenu>
           </div>
         </div>
-        <div className={`${isSideMenuOpen ? " md:w-9/12" : "md:w-full"} `}>
+        <div
+          className={`${isSideMenuOpen ? " md:w-9/12" : "md:w-full"} w-screen`}
+        >
           <Outlet></Outlet>
         </div>
       </div>
