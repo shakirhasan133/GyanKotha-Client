@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-import LoadingPage from "./../Pages/Loading";
+import LoadingPage from "../Pages/LoadingPage";
 import { Navigate, useLocation } from "react-router-dom";
 import UseAuth from "../Hooks/UseAuth";
 

@@ -183,18 +183,21 @@ const Navbar = () => {
                     />
                   </button>
                   <button
-                    className="hidden md:block p-2 text-primary-light font-medium rounded-md hover:bg-primary-dark transition"
+                    className="hidden md:block p-2 text-primary-darkest font-medium rounded-md hover:bg-primary-dark hover:text-light transition"
                     onClick={handleSignOut}
                   >
                     Log out
                   </button>
                 </div>
                 {isDropdownOpen && (
-                  <div className="absolute w-[200px] right-0 mt-2 bg-primary-light text-primary-dark rounded-md shadow-lg z-50">
+                  <div className="absolute w-[200px] right-0 mt-2 bg-primary-light text-primary-dark rounded-md shadow-lg z-50 text-center">
+                    <h1 className="text-md px-4 py-2 font-bold">
+                      {user?.displayName}
+                    </h1>
                     <NavLink
                       to="/addItems"
                       className={({ isActive }) =>
-                        `block px-4 py-2 w-full text-left hover:bg-primary-dark hover:text-primary-light transition ${
+                        `text-center w-10/12 block mx-auto px-4 py-2  bg-primary-darkest text-light  rounded-md hover:bg-primary-dark  transition ${
                           isActive
                             ? "bg-primary-dark text-primary-light transition"
                             : ""
@@ -206,7 +209,7 @@ const Navbar = () => {
 
                     <button
                       onClick={handleSignOut}
-                      className="block px-4 py-2 w-full text-left hover:bg-primary-dark hover:text-primary-light transition"
+                      className=" my-3 text-center w-10/12 block mx-auto px-4 py-2  bg-primary-darkest text-light  rounded-md hover:bg-primary-dark  transition"
                     >
                       Sign Out
                     </button>
@@ -312,7 +315,7 @@ const Navbar = () => {
                   {user?.displayName}
                 </h1>
                 <button
-                  className="px-4 py-2 text-light w-full bg-primary font-medium rounded-md  hover:text-primary-light transition"
+                  className="px-4 py-2 text-primary-darkest w-full bg-primary font-medium rounded-md  hover:text-primary-light transition"
                   onClick={handleSignOut}
                 >
                   Log Out

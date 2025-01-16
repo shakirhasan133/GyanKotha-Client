@@ -20,6 +20,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [error, setError] = useState("");
   // const AxiosSecure = UseAxiosSecure();
+  const [isSideMenuOpen, setIsSideMenuOpen] = useState(true);
 
   // Sign in with Google
   const signInWithGoogleEmail = () => {
@@ -99,6 +100,8 @@ const AuthProvider = ({ children }) => {
     setError,
     updateUserData,
     resetPassword,
+    isSideMenuOpen,
+    setIsSideMenuOpen,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
