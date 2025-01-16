@@ -12,6 +12,8 @@ import Dashboard from "../Layout/Dashboard";
 import DashStats from "../Components/Dashboard/DashStats";
 import EnrolledClasses from "../Components/Dashboard/Student/EnrolledClasses";
 import Profile from "../Components/Dashboard/Profile/Profile";
+import TeacherRoutes from "./TeacherRoutes";
+import AddClass from "../Components/Dashboard/Teacher/AddClass";
 
 export const router = createBrowserRouter([
   {
@@ -81,6 +83,15 @@ export const router = createBrowserRouter([
           <PrivateRoutes>
             <Profile></Profile>
           </PrivateRoutes>
+        ),
+      },
+      // Teacher Routes
+      {
+        path: "add-class",
+        element: (
+          <TeacherRoutes>
+            <AddClass></AddClass>
+          </TeacherRoutes>
         ),
       },
     ],

@@ -6,8 +6,8 @@ import TeacherMenu from "../Menu/TeacherMenu";
 import AdminMenu from "../Menu/AdminMenu";
 
 export function SideMenu() {
-  const [role] = useRole();
-  // const role = "admin";
+  // const [role] = useRole();
+  const role = "teacher";
   return (
     <Card className="h-[calc(100vh-4rem)] w-full max-w-[20rem] bg-gradient-to-b from-primary-darkest to-primary-dark p-4 fixed">
       <List>

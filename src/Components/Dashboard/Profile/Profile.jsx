@@ -1,4 +1,3 @@
-import { EnvelopeIcon } from "@heroicons/react/24/outline";
 import UseAuth from "../../../Hooks/UseAuth";
 import useRole from "../../../Hooks/UseRole";
 import { MdEmail } from "react-icons/md";
