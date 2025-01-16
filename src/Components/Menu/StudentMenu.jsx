@@ -6,7 +6,7 @@ const StudentMenu = () => {
     <div>
       <MenuItem
         label={"My Enroll Class"}
-        address={"/my-enroll-class"}
+        address={"/dashboard/my-enroll-class"}
         icon={BookmarkIcon}
       ></MenuItem>
     </div>

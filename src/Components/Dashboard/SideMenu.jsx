@@ -9,7 +9,7 @@ export function SideMenu() {
   const [role] = useRole();
   // const role = "admin";
   return (
-    <Card className="h-[calc(100vh-4rem)] w-full max-w-[20rem] bg-gradient-to-b from-primary-darkest to-primary-dark p-4 ">
+    <Card className="h-[calc(100vh-4rem)] w-full max-w-[20rem] bg-gradient-to-b from-primary-darkest to-primary-dark p-4 fixed">
       <List>
         <CommonMenu></CommonMenu>
         {role === "customer" && <StudentMenu></StudentMenu>}

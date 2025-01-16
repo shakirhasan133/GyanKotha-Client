@@ -195,7 +195,7 @@ const Navbar = () => {
                       {user?.displayName}
                     </h1>
                     <NavLink
-                      to="/addItems"
+                      to="/dashboard"
                       className={({ isActive }) =>
                         `text-center w-10/12 block mx-auto px-4 py-2  bg-primary-darkest text-light  rounded-md hover:bg-primary-dark  transition ${
                           isActive

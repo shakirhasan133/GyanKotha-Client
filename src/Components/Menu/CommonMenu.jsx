@@ -8,7 +8,7 @@ const CommonMenu = () => {
 
       <MenuItem
         label={"Profile"}
-        address={"/profile"}
+        address={"/dashboard/profile"}
         icon={UserCircleIcon}
       ></MenuItem>
     </div>

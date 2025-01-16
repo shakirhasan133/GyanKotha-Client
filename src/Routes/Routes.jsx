@@ -9,6 +9,9 @@ import ApplyToTeach from "../Pages/PrivatePage/ApplyToTeach";
 import PrivateRoutes from "./PrivateRoutes";
 import CourseDetails from "../Pages/PrivatePage/CourseDetails";
 import Dashboard from "../Layout/Dashboard";
+import DashStats from "../Components/Dashboard/DashStats";
+import EnrolledClasses from "../Components/Dashboard/Student/EnrolledClasses";
+import Profile from "../Components/Dashboard/Profile/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -59,5 +62,27 @@ export const router = createBrowserRouter([
         <Dashboard></Dashboard>
       </PrivateRoutes>
     ),
+    children: [
+      {
+        index: true,
+        element: <DashStats></DashStats>,
+      },
+      {
+        path: "my-enroll-class",
+        element: (
+          <PrivateRoutes>
+            <EnrolledClasses></EnrolledClasses>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "profile",
+        element: (
+          <PrivateRoutes>
+            <Profile></Profile>
+          </PrivateRoutes>
+        ),
+      },
+    ],
   },
 ]);
