@@ -1,38 +1,33 @@
-import { useEffect, useState } from "react";
 import UseAuth from "../../../Hooks/UseAuth";
+import { useQuery } from "@tanstack/react-query";
+import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
+import LoadingPage from "../../../Pages/LoadingPage";
+import { useNavigate } from "react-router-dom";
 
 const MyClasses = () => {
-  const { user } = UseAuth(); // Assuming 'user' contains teacher's info
-  const [classes, setClasses] = useState([]);
+  const { user } = UseAuth();
+  const axiosSecure = UseAxiosSecure();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    // Fetch classes created by the teacher
-    fetch("/Classes.json")
-      .then((res) => res.json())
-      .then((data) => {
-        setClasses(data);
-      });
-  }, [user.email]);
+  const { data: Classes = [], isLoading } = useQuery({
+    queryKey: ["TeacherClass", user?.email],
+    queryFn: async () => {
+      const { data } = await axiosSecure(`/allClasses?email=${user?.email}`);
+      return data;
+    },
+  });
 
   const handleUpdate = (id) => {
-    console.log("Update class with ID:", id);
-    alert("Update functionality not implemented yet.");
+    navigate(`/dashboard/update-class/${id}`);
   };
 
-  const handleDelete = (id) => {
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this class?"
-    );
-    if (confirmed) {
-      setClasses(classes.filter((classItem) => classItem.id !== id));
-      alert("Class deleted successfully.");
-    }
-  };
+  const handleDelete = (id) => {};
 
-  const handleSeeDetails = (id) => {
-    console.log("See details of class with ID:", id);
-    alert("See Details functionality not implemented yet.");
-  };
+  const handleSeeDetails = (id) => {};
+
+  if (isLoading) {
+    return <LoadingPage></LoadingPage>;
+  }
 
   return (
     <div className="min-h-screen bg-bodyColor-light p-6">
@@ -40,16 +35,16 @@ const MyClasses = () => {
         My Classes
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {classes.map((classItem) => (
+        {Classes.map((classItem) => (
           <div
             key={classItem.id}
-            className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300"
+            className="bg-white border-2 shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300"
           >
             {/* Class Image */}
             <img
               src={classItem.image}
               alt={classItem.title}
-              className="w-full h-40 object-cover"
+              className="w-full h-56 md:h-64 object-cover object-top rounded-lg"
             />
 
             {/* Class Details */}
@@ -57,20 +52,15 @@ const MyClasses = () => {
               <h3 className="text-xl font-bold text-gray-800 mb-2">
                 {classItem.title}
               </h3>
-              <p className="text-gray-600">
-                <span className="font-semibold">Name:</span> {user.name}
+              <p className="text-primary-dark font-semibold  text-xl">
+                <span className="">Price:</span> ${" "}
+                <span className="text-success">{classItem.price}</span>
               </p>
               <p className="text-gray-600">
-                <span className="font-semibold">Email:</span> {user.email}
-              </p>
-              <p className="text-gray-600">
-                <span className="font-semibold">Price:</span> ${classItem.price}
-              </p>
-              <p className="text-gray-600">
-                <span className="font-semibold">Description:</span>{" "}
+                <span className="font-semibold text-accent">Description:</span>{" "}
                 {classItem.description}
               </p>
-              <p className="text-gray-600">
+              <p className="text-gray-600 mt-2">
                 <span className="font-semibold">Status:</span>{" "}
                 <span
                   className={`font-bold ${
@@ -79,7 +69,7 @@ const MyClasses = () => {
                       : "text-success"
                   }`}
                 >
-                  {classItem.status || "Pending"}
+                  {classItem?.status}
                 </span>
               </p>
             </div>
@@ -87,19 +77,20 @@ const MyClasses = () => {
             {/* Actions */}
             <div className="flex gap-2 p-4">
               <button
-                onClick={() => handleUpdate(classItem.id)}
+                onClick={() => handleUpdate(classItem._id)}
                 className="flex-1 bg-primary-dark text-white font-medium py-2 rounded-md hover:bg-primary transition-colors"
               >
                 Update
               </button>
               <button
-                onClick={() => handleDelete(classItem.id)}
+                onClick={() => handleDelete(classItem._id)}
                 className="flex-1 bg-error text-white font-medium py-2 rounded-md hover:bg-error-dark transition-colors"
               >
                 Delete
               </button>
               <button
-                onClick={() => handleSeeDetails(classItem.id)}
+                disabled={classItem.status === "Pending"}
+                onClick={() => handleSeeDetails(classItem._id)}
                 className="flex-1 bg-info text-white font-medium py-2 rounded-md hover:bg-info-dark transition-colors"
               >
                 See Details

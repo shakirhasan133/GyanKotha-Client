@@ -1,24 +1,42 @@
 import { useForm } from "react-hook-form";
-import UseAuth from "../../../Hooks/UseAuth";
 import { useState } from "react";
 import { ImageUpload } from "../../../Api/utils";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
 import Swal from "sweetalert2";
+import { useParams } from "react-router-dom";
 
-const AddClass = () => {
-  const { user } = UseAuth();
+const UpdateClass = () => {
   const { register, handleSubmit, reset } = useForm();
   const [imageUrl, SetImageUrl] = useState("");
   const axiosSecure = UseAxiosSecure();
-  const [buttonDisabled, setButtonDisabled] = useState(true);
-  const AddClassData = useMutation({
-    mutationFn: async (ClassData) => {
-      const { data } = await axiosSecure.post("/addCourse", ClassData);
+  const { id } = useParams();
+
+  const { data: ClassData = [] } = useQuery({
+    queryKey: ["ClassDataUpage", id],
+    queryFn: async () => {
+      const { data } = await axiosSecure(`/allClasses?id=${id}`);
+      SetImageUrl(data[0].image) || "";
+      reset({
+        title: data[0]?.title || "",
+        price: data[0]?.price || "",
+        description: data[0]?.description || "",
+      });
       return data;
     },
-    onSuccess: () => {
-      // console.log(data);
+  });
+
+  //   const { title, price, description, image } = ClassData[0] || [];
+
+  const UpdateClassData = useMutation({
+    mutationFn: async (upClassData) => {
+      const { data } = await axiosSecure.patch(`/updateClass/${id}`, {
+        upClassData,
+      });
+      return data;
+    },
+    onSuccess: (data) => {
+      console.log(data);
       Swal.fire({
         title: "Success",
         text: "The Course Added Successfully",
@@ -38,37 +56,21 @@ const AddClass = () => {
   const handleImage = async (data) => {
     const imgURL = await ImageUpload(data);
     SetImageUrl(imgURL);
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "bottom-end",
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.onmouseenter = Swal.stopTimer;
-        toast.onmouseleave = Swal.resumeTimer;
-      },
-    });
-    Toast.fire({
-      icon: "success",
-      title: "Image Upload Successful",
-    });
-    setButtonDisabled(false);
   };
+  console.log(imageUrl);
 
-  const handleAddClass = (data) => {
+  const handleUpdateClass = (data) => {
     const { title, price, description } = data;
 
-    const ClassData = {
-      email: user?.email,
-      name: user?.displayName,
-      teacherImage: user?.photoURL,
+    const UClassData = {
       title,
       price,
       description,
       image: imageUrl,
     };
-    AddClassData.mutate(ClassData);
+    // console.log(UpdateClassData);
+
+    UpdateClassData.mutate(UClassData);
     reset();
   };
 
@@ -78,7 +80,7 @@ const AddClass = () => {
         <h1 className="text-2xl font-bold text-primary-dark mb-6 text-center">
           Add a New Class
         </h1>
-        <form onSubmit={handleSubmit(handleAddClass)} className="space-y-6">
+        <form onSubmit={handleSubmit(handleUpdateClass)} className="space-y-6">
           {/* Title */}
           <div>
             <label
@@ -95,40 +97,6 @@ const AddClass = () => {
               placeholder="Enter class title"
               className="w-full border border-light-dark rounded-md py-2 px-3 focus:outline-none focus:border-primary-dark"
               required
-            />
-          </div>
-
-          {/* Name (Non-editable) */}
-          <div>
-            <label
-              htmlFor="name"
-              className="block text-accent-darkest font-medium mb-2"
-            >
-              Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              value={user.displayName}
-              readOnly
-              className="w-full cursor-not-allowed border border-light-dark rounded-md py-2 px-3 "
-            />
-          </div>
-
-          {/* Email (Non-editable) */}
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-accent-darkest font-medium mb-2"
-            >
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              value={user.email}
-              readOnly
-              className="w-full cursor-not-allowed border border-light-dark rounded-md py-2 px-3 text-muted-dark"
             />
           </div>
 
@@ -183,15 +151,15 @@ const AddClass = () => {
               type="file"
               id="image"
               name="image"
+              {...register("image")}
               className="w-full border border-light-dark rounded-md py-2 px-3 focus:outline-none focus:border-primary-dark"
-              required
+              //   required
             />
           </div>
 
           {/* Submit Button */}
           <div>
             <button
-              disabled={buttonDisabled}
               type="submit"
               className="w-full bg-gradient-to-r from-primary-dark to-primary text-white font-medium py-2 rounded-md shadow-btn hover:from-primary hover:to-primary-dark transition-all"
             >
@@ -204,4 +172,4 @@ const AddClass = () => {
   );
 };
 
-export default AddClass;
+export default UpdateClass;
