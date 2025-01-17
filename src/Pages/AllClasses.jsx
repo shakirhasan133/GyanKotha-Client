@@ -1,20 +1,30 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import useAxiosPublic from "../Hooks/UseAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
+import ReactPaginate from "react-paginate";
 
 const AllClasses = () => {
-  const [classes, setClasses] = useState([]);
+  const axiospublic = useAxiosPublic();
+  const [itemOffset, setItemOffset] = useState(0);
+  const itemsPerPage = 6;
 
-  // Fetch approved classes
-  useEffect(() => {
-    fetch("/Classes.json") // Replace with your API endpoint
-      .then((res) => res.json())
-      .then((data) => {
-        const approvedClasses = data.filter((cls) => cls.status === "approved");
-        setClasses(approvedClasses);
-      })
-      .catch((err) => console.error("Error fetching classes:", err));
-  }, []);
+  const { data: AllClasses = [] } = useQuery({
+    queryKey: ["allClasses"],
+    queryFn: async () => {
+      const { data } = await axiospublic.get("/allClasses");
+      return data;
+    },
+  });
 
-  console.log(classes);
+  const endOffset = itemOffset + itemsPerPage;
+  console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+  const currentItems = AllClasses.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(AllClasses.length / itemsPerPage);
+
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % AllClasses.length;
+    setItemOffset(newOffset);
+  };
 
   return (
     <section className="bg-light py-10">
@@ -23,7 +33,7 @@ const AllClasses = () => {
           All Classes
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {classes?.map((cls) => (
+          {currentItems?.map((cls) => (
             <div
               key={cls._id}
               className="bg-white rounded-lg shadow-lg p-4 hover:shadow-xl transition-shadow"
@@ -60,12 +70,26 @@ const AllClasses = () => {
             </div>
           ))}
         </div>
-        {classes.length === 0 && (
+        {AllClasses.length === 0 && (
           <p className="text-center text-gray-500 mt-8">
             No approved classes available at the moment.
           </p>
         )}
       </div>
+      <ReactPaginate
+        breakLabel="..."
+        nextLabel="next >"
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={5}
+        pageCount={pageCount}
+        previousLabel="< previous"
+        renderOnZeroPageCount={null}
+        containerClassName=" pagination flex items-center justify-center  w-full gap-3 my-5 text-md"
+        pageLinkClassName="page-num bg-primary-light p-2 rounded hover:bg-primary"
+        previousClassName="bg-primary p-2 rounded font-bold text-light"
+        nextLinkClassName="bg-primary p-2 rounded font-bold text-light"
+        activeLinkClassName="active"
+      />
     </section>
   );
 };

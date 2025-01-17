@@ -19,7 +19,11 @@ const JoinAsTeacher = () => {
             dreams.
           </p>
           <div className="flex justify-center md:justify-start">
-            <Button label="Become a Teacher" filled></Button>
+            <Button
+              label="Become a Teacher"
+              address="applyToTech"
+              filled
+            ></Button>
           </div>
         </div>
 

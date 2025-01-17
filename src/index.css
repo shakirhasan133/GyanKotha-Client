@@ -41,3 +41,10 @@ Index {
   user-select: none; /* Prevent text selection */
   pointer-events: none; /* Disable mouse interactions */
 }
+
+/* Pagination Style */
+
+.pagination .active {
+  background-color: #005054;
+  color: white;
+}

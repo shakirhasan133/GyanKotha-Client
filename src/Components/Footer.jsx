@@ -3,7 +3,7 @@ import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-r from-primary-darkest to-primary-dark text-primary-light py-12">
+    <footer className="text-light bg-gradient-to-r from-primary-darkest to-primary-dark  py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -35,26 +35,19 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/articles"
+                  to="/allClasses"
                   className="text-sm hover:text-primary-light transition duration-200"
                 >
-                  Articles
+                  All Classes
                 </Link>
               </li>
+
               <li>
                 <Link
-                  to="/about"
+                  to="/applyToTech"
                   className="text-sm hover:text-primary-light transition duration-200"
                 >
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/contact"
-                  className="text-sm hover:text-primary-light transition duration-200"
-                >
-                  Contact
+                  Tech on Gyankotha
                 </Link>
               </li>
             </ul>

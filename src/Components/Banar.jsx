@@ -33,7 +33,11 @@ const Banar = () => {
             electronic typesetting.
           </p>
           <div className="flex justify-center md:justify-start">
-            <Button label={"Start a Course"} filled></Button>
+            <Button
+              label={"Start a Course"}
+              address={"/allClasses"}
+              filled
+            ></Button>
           </div>
         </div>
 
