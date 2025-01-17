@@ -1,28 +1,49 @@
-import { useState } from "react";
+import { useForm } from "react-hook-form";
 import UseAuth from "../../../Hooks/UseAuth";
+import { useState } from "react";
+import { ImageUpload } from "../../../Api/utils";
+import { useMutation } from "@tanstack/react-query";
+import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
 
 const AddClass = () => {
-  const { user } = UseAuth(); // Assuming 'user' contains teacher info
-  const [formData, setFormData] = useState({
-    title: "",
-    price: "",
-    description: "",
-    image: "",
+  const { user } = UseAuth();
+  const { register, handleSubmit, reset } = useForm();
+  const [imageUrl, SetImageUrl] = useState("");
+  const axiosSecure = UseAxiosSecure();
+
+  const AddClassData = useMutation({
+    mutationFn: async (ClassData) => {
+      const { data } = await axiosSecure.post("/addCourse", ClassData);
+      return data;
+    },
+    onSuccess: (data) => {
+      console.log(data);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  const handleImage = async (data) => {
+    const imgURL = await ImageUpload(data);
+    SetImageUrl(imgURL);
+    console.log(imgURL);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Class Data:", {
-      ...formData,
-      name: user.name,
-      email: user.email,
-    });
-    alert("Class added successfully!");
+  const handleAddClass = (data) => {
+    const { title, price, description } = data;
+
+    const ClassData = {
+      email: user?.email,
+      name: user?.displayName,
+      teacherImage: user?.photoURL,
+      title,
+      price,
+      description,
+      image: imageUrl,
+    };
+    AddClassData.mutate(ClassData);
+    reset();
   };
 
   return (
@@ -31,7 +52,7 @@ const AddClass = () => {
         <h1 className="text-2xl font-bold text-primary-dark mb-6 text-center">
           Add a New Class
         </h1>
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit(handleAddClass)} className="space-y-6">
           {/* Title */}
           <div>
             <label
@@ -41,11 +62,10 @@ const AddClass = () => {
               Class Title
             </label>
             <input
+              {...register("title")}
               type="text"
               id="title"
               name="title"
-              value={formData.title}
-              onChange={handleChange}
               placeholder="Enter class title"
               className="w-full border border-light-dark rounded-md py-2 px-3 focus:outline-none focus:border-primary-dark"
               required
@@ -95,11 +115,10 @@ const AddClass = () => {
               Price
             </label>
             <input
+              {...register("price")}
               type="number"
               id="price"
               name="price"
-              value={formData.price}
-              onChange={handleChange}
               placeholder="Enter class price"
               className="w-full border border-light-dark rounded-md py-2 px-3 focus:outline-none focus:border-primary-dark"
               required
@@ -115,10 +134,9 @@ const AddClass = () => {
               Description
             </label>
             <textarea
+              {...register("description")}
               id="description"
               name="description"
-              value={formData.description}
-              onChange={handleChange}
               placeholder="Enter class description"
               rows="4"
               className="w-full border border-light-dark rounded-md py-2 px-3 focus:outline-none focus:border-primary-dark"
@@ -135,10 +153,10 @@ const AddClass = () => {
               Image
             </label>
             <input
+              onChange={(e) => handleImage(e.target.files[0])}
               type="file"
               id="image"
               name="image"
-              onChange={handleChange}
               className="w-full border border-light-dark rounded-md py-2 px-3 focus:outline-none focus:border-primary-dark"
               required
             />
