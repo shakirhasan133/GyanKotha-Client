@@ -27,7 +27,7 @@ const UseAxiosSecure = () => {
             showConfirmButton: false,
             timer: 1000,
           });
-          signOutUser;
+          signOutUser();
           navigate("/login");
         }
       }

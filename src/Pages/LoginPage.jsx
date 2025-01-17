@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import UseAuth from "../Hooks/UseAuth";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { SaveUser } from "../Api/utils";
 
 const LoginPage = () => {
   const { signInWithEmail, signInWithGoogleEmail } = UseAuth();
@@ -38,9 +39,13 @@ const LoginPage = () => {
   // Handle Login with Google
   const handleLoginWithGoogleEmail = () => {
     signInWithGoogleEmail()
-      .then((res) => {
-        navigate(from);
-        console.log(res.user);
+      .then(async (data) => {
+        try {
+          await SaveUser(data.user);
+          navigate(from);
+        } catch (error) {
+          console.log(error.message);
+        }
       })
       .catch((error) => {
         setError(error.message);

@@ -70,7 +70,6 @@ const AuthProvider = ({ children }) => {
           );
           setUser(currentUser);
         } else {
-          setUser(currentUser);
           await axios.post(
             `${import.meta.env.VITE_API_URL}/logout`,
             {},
@@ -78,6 +77,7 @@ const AuthProvider = ({ children }) => {
               withCredentials: true,
             }
           );
+          setUser(currentUser);
         }
       } catch (error) {
         console.log(error);
