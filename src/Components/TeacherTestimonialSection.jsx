@@ -12,18 +12,12 @@ const TeacherTestimonialSection = () => {
   const axiospublic = useAxiosPublic();
 
   const { data: testimonial = [] } = useQuery({
-    queryKey: "testimonial",
+    queryKey: ["testimonial"],
     queryFn: async () => {
       const { data } = await axiospublic("/Reviews");
       return data;
     },
   });
-
-  // useEffect(() => {
-  //   fetch("/Testimonial.json")
-  //     .then((res) => res.json())
-  //     .then((data) => setData(data));
-  // }, []);
 
   return (
     <section className="bg-light py-10 mt-5">

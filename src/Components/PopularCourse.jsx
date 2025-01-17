@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import ClassCard from "./ClassCard";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -16,12 +15,6 @@ const PopularCourse = () => {
       return data;
     },
   });
-
-  // useEffect(() => {
-  //   fetch("/Course.json")
-  //     .then((res) => res.json())
-  //     .then((data) => setData(data));
-  // }, []);
 
   return (
     <section className="bg-light py-10 mt-5">

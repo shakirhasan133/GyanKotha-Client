@@ -1,45 +1,19 @@
 /* eslint-disable react/no-unescaped-entities */
 import { FaStar } from "react-icons/fa";
-
-const instructors = [
-  {
-    id: 1,
-    name: "Margarita James",
-    qualification: "MSC, Instructor",
-    rating: 4.9,
-    image: "https://via.placeholder.com/100", // Replace with actual image URL
-  },
-  {
-    id: 2,
-    name: "Mitchell Colon",
-    qualification: "BBA, Instructor",
-    rating: 4.9,
-    image: "https://via.placeholder.com/100", // Replace with actual image URL
-  },
-  {
-    id: 3,
-    name: "Sonya Gordon",
-    qualification: "MBA, Instructor",
-    rating: 4.9,
-    image: "https://via.placeholder.com/100", // Replace with actual image URL
-  },
-  {
-    id: 4,
-    name: "Archie Neal",
-    qualification: "BBS, Instructor",
-    rating: 4.9,
-    image: "https://via.placeholder.com/100", // Replace with actual image URL
-  },
-  {
-    id: 5,
-    name: "Randal Ramsey",
-    qualification: "MBBS, Instructor",
-    rating: 4.9,
-    image: "https://via.placeholder.com/100", // Replace with actual image URL
-  },
-];
+import useAxiosPublic from "../Hooks/UseAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
 
 const SkilledInstructor = () => {
+  const axiospublic = useAxiosPublic();
+
+  const { data: instructors = [] } = useQuery({
+    queryKey: ["teachersPublic"],
+    queryFn: async () => {
+      const { data } = await axiospublic.get("/teachers");
+      return data;
+    },
+  });
+
   return (
     <section className="bg-white py-16 px-4">
       <div className="max-w-6xl mx-auto text-center">
