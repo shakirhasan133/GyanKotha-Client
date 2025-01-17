@@ -1,4 +1,8 @@
-import { BookmarkIcon, PlayCircleIcon } from "@heroicons/react/24/outline";
+import {
+  BookmarkIcon,
+  ChatBubbleBottomCenterIcon,
+  PlayCircleIcon,
+} from "@heroicons/react/24/outline";
 import MenuItem from "./MenuItem";
 
 const TeacherMenu = () => {
@@ -13,6 +17,11 @@ const TeacherMenu = () => {
         label={"My Class"}
         address={"/dashboard/my-classes"}
         icon={BookmarkIcon}
+      ></MenuItem>
+      <MenuItem
+        label={"Add Review"}
+        address={"/dashboard/addReview"}
+        icon={ChatBubbleBottomCenterIcon}
       ></MenuItem>
     </div>
   );

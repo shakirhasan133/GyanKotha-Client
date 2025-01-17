@@ -19,6 +19,7 @@ import AdminRoute from "./AdminRoute";
 import TeacherRequest from "../Components/Dashboard/Admin/TeacherRequest";
 import AllUsers from "../Components/Dashboard/Admin/AllUsers";
 import AllClassData from "../Components/Dashboard/Admin/AllClassData";
+import AddReviewPage from "../Components/Dashboard/Teacher/AddReviewPage";
 
 export const router = createBrowserRouter([
   {
@@ -104,6 +105,14 @@ export const router = createBrowserRouter([
         element: (
           <TeacherRoutes>
             <MyClasses></MyClasses>
+          </TeacherRoutes>
+        ),
+      },
+      {
+        path: "addReview",
+        element: (
+          <TeacherRoutes>
+            <AddReviewPage></AddReviewPage>
           </TeacherRoutes>
         ),
       },

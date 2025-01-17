@@ -3,9 +3,20 @@ import coverPhoto from "../assets/coverphoto.png";
 import { IoBook } from "react-icons/io5";
 import { FaStar } from "react-icons/fa";
 import { motion } from "framer-motion";
-import curveLine from "../assets/Curve.svg";
+// import curveLine from "../assets/Curve.svg";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../Hooks/UseAxiosPublic";
 
 const Banar = () => {
+  const axiospublic = useAxiosPublic();
+  const { data: classesData = [] } = useQuery({
+    queryKey: ["classData"],
+    queryFn: async () => {
+      const { data } = await axiospublic.get("/classes");
+      return data.res;
+    },
+  });
+
   return (
     <section className="max-h-[100vh] overflow-hidden px-4 md:px-8 curve">
       <div className="flex flex-col md:flex-row justify-between items-center ">
@@ -38,7 +49,9 @@ const Banar = () => {
             className="h-[100px] w-[100px] md:h-[150px] md:w-[150px] absolute top-[5%] md:top-[15%] -left-4 md:-left-8 rounded-full bg-primary flex flex-col justify-center items-center p-3 md:p-5"
           >
             <IoBook className="text-white mb-1 text-2xl md:text-4xl font-bold"></IoBook>
-            <h1 className="text-xl md:text-2xl font-bold text-white">100</h1>
+            <h1 className="text-xl md:text-2xl font-bold text-white">
+              {classesData}
+            </h1>
             <p className="text-sm md:text-md text-white font-semibold">
               Courses
             </p>

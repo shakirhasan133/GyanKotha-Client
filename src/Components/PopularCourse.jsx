@@ -3,15 +3,25 @@ import ClassCard from "./ClassCard";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Heading from "./Shared/Heading";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../Hooks/UseAxiosPublic";
 
 const PopularCourse = () => {
-  const [data, setData] = useState([]);
+  const axiospublic = useAxiosPublic();
 
-  useEffect(() => {
-    fetch("/Course.json")
-      .then((res) => res.json())
-      .then((data) => setData(data));
-  }, []);
+  const { data: popularClass = [] } = useQuery({
+    queryKey: ["popularClass"],
+    queryFn: async () => {
+      const { data } = await axiospublic.get("/popularClass");
+      return data;
+    },
+  });
+
+  // useEffect(() => {
+  //   fetch("/Course.json")
+  //     .then((res) => res.json())
+  //     .then((data) => setData(data));
+  // }, []);
 
   return (
     <section className="bg-light py-10 mt-5">
@@ -58,8 +68,8 @@ const PopularCourse = () => {
           slidesToSlide={1}
           swipeable
         >
-          {data.length > 0 ? (
-            data.map((course, index) => (
+          {popularClass.length > 0 ? (
+            popularClass.map((course, index) => (
               <div key={index} className="flex justify-center items-center">
                 {/* Ensures consistent card size */}
                 <ClassCard

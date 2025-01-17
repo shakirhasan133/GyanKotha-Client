@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 
 import { SideMenu } from "../Components/Dashboard/SideMenu";
-// import { CustomScroll } from "react-custom-scroll";
+import { CustomScroll } from "react-custom-scroll";
 import DashNav from "../Components/Dashboard/DashNav";
 import UseAuth from "./../Hooks/UseAuth";
 
@@ -16,6 +16,7 @@ const Dashboard = () => {
             <SideMenu></SideMenu>
           </div>
         </div>
+
         <div
           className={`${isSideMenuOpen ? " md:w-9/12" : "md:w-full"} w-screen`}
         >

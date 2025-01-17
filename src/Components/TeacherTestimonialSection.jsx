@@ -5,14 +5,25 @@ import "react-multi-carousel/lib/styles.css";
 import TestimonialCard from "./TestimonialCard";
 import Heading from "./Shared/Heading";
 import CustomButtonGroupAsArrows from "./CustomButtonGroupAsArrows";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../Hooks/UseAxiosPublic";
 
 const TeacherTestimonialSection = () => {
-  const [data, setData] = useState([]);
-  useEffect(() => {
-    fetch("/Testimonial.json")
-      .then((res) => res.json())
-      .then((data) => setData(data));
-  }, []);
+  const axiospublic = useAxiosPublic();
+
+  const { data: testimonial = [] } = useQuery({
+    queryKey: "testimonial",
+    queryFn: async () => {
+      const { data } = await axiospublic("/Reviews");
+      return data;
+    },
+  });
+
+  // useEffect(() => {
+  //   fetch("/Testimonial.json")
+  //     .then((res) => res.json())
+  //     .then((data) => setData(data));
+  // }, []);
 
   return (
     <section className="bg-light py-10 mt-5">
@@ -80,7 +91,7 @@ const TeacherTestimonialSection = () => {
             slidesToSlide={1}
             swipeable
           >
-            {data?.map((testimonial, index) => (
+            {testimonial?.map((testimonial, index) => (
               <TestimonialCard
                 key={index}
                 testimonial={testimonial}
