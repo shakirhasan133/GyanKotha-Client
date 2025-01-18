@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
+import Swal from "sweetalert2";
 
 const TeacherRequest = () => {
   const axiosSecure = UseAxiosSecure();
 
-  const { data: requests = [] } = useQuery({
+  const { data: requests = [], refetch } = useQuery({
     queryKey: ["teacherRequest"],
     queryFn: async () => {
       const { data } = await axiosSecure("/teachersRequest");
@@ -15,9 +16,51 @@ const TeacherRequest = () => {
 
   // console.log(requests);
 
-  const handleApprove = (id) => {};
+  const handleApprove = async (id) => {
+    try {
+      const { data } = await axiosSecure.patch(`/update-teacher-status/${id}`, {
+        request: "Approve",
+      });
+      if (data.modifiedCount > 0) {
+        Swal.fire({
+          title: "Success",
+          text: "Status Updated Successfully",
+          icon: "success",
+        });
+      }
+      refetch();
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        title: "error",
+        text: "Something went wrong",
+        icon: "error",
+      });
+    }
+  };
 
-  const handleReject = (id) => {};
+  const handleReject = async (id) => {
+    try {
+      const { data } = await axiosSecure.patch(`/update-teacher-status/${id}`, {
+        request: "Reject",
+      });
+      if (data.modifiedCount > 0) {
+        Swal.fire({
+          title: "Success",
+          text: "Status Updated Successfully",
+          icon: "success",
+        });
+        refetch();
+      }
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        title: "error",
+        text: "Something went wrong",
+        icon: "error",
+      });
+    }
+  };
 
   return (
     <div className="min-h-screen bg-bodyColor-light p-6">
@@ -69,15 +112,15 @@ const TeacherRequest = () => {
                 </td>
                 <td className="py-3 px-4 text-center flex gap-2 justify-center">
                   <button
-                    onClick={() => handleApprove(request.id)}
-                    className="bg-success text-white px-4 py-2 rounded-md hover:bg-success-dark transition-colors"
-                    disabled={request.status !== "Pending"}
+                    onClick={() => handleApprove(request._id)}
+                    className="btn bg-success text-white px-4 py-2 rounded-md hover:bg-success-dark transition-colors"
+                    disabled={request.status === "Approved"}
                   >
                     Approve
                   </button>
                   <button
-                    onClick={() => handleReject(request.id)}
-                    className="bg-error text-white px-4 py-2 rounded-md hover:bg-error-dark transition-colors"
+                    onClick={() => handleReject(request._id)}
+                    className="btn bg-error text-white px-4 py-2 rounded-md hover:bg-error-dark transition-colors"
                     disabled={request.status !== "Pending"}
                   >
                     Reject

@@ -1,23 +1,40 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
+import Swal from "sweetalert2";
 
 const AllUsers = () => {
-  const [users, setUsers] = useState([]);
+  const axiosSecure = UseAxiosSecure();
+  const { data: users = [], refetch } = useQuery({
+    queryKey: ["UserData"],
+    queryFn: async () => {
+      const { data } = await axiosSecure("/allUsers");
+      return data;
+    },
+  });
 
-  useEffect(() => {
-    // Fetch all users
-    fetch("/Users.json")
-      .then((res) => res.json())
-      .then((data) => setUsers(data));
-  }, []);
+  const handleMakeAdmin = async (id) => {
+    try {
+      const { data } = await axiosSecure.patch(`/makeAdmin/${id}`);
+      console.log(data);
 
-  const handleMakeAdmin = (id) => {
-    console.log("Making admin:", id);
-    alert("User has been granted admin privileges!");
-    setUsers((prev) =>
-      prev.map((user) => (user.id === id ? { ...user, role: "Admin" } : user))
-    );
+      if (data.modifiedCount > 0) {
+        Swal.fire({
+          title: "Success",
+          text: "Status Updated Successfully",
+          icon: "success",
+        });
+        refetch();
+      }
+    } catch (error) {
+      console.log(error);
+
+      Swal.fire({
+        title: "error",
+        text: "Something went wrong",
+        icon: "error",
+      });
+    }
   };
-
   return (
     <div className="min-h-screen bg-bodyColor-light p-6">
       <h1 className="text-3xl font-bold text-primary-dark mb-8 text-center">
@@ -54,7 +71,7 @@ const AllUsers = () => {
                     <span className="text-success font-medium">Admin</span>
                   ) : (
                     <button
-                      onClick={() => handleMakeAdmin(user.id)}
+                      onClick={() => handleMakeAdmin(user._id)}
                       className="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-dark transition-colors"
                     >
                       Make Admin
