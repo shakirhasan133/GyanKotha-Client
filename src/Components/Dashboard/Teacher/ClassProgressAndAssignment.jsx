@@ -84,9 +84,10 @@ const ClassProgressAndAssignment = () => {
     mutation.mutate({
       title: data.title,
       deadline: data.deadline,
-      marks: data.marks,
+      marks: Number(data.marks),
       description: data.description,
       email: user?.email,
+      classId: classProgress?._id,
     });
   };
 
@@ -182,7 +183,7 @@ const ClassProgressAndAssignment = () => {
                     {assignment.submits}
                   </td>
                   <td className="px-6 py-4 border border-gray-200">
-                    {assignment.lastDate}
+                    {assignment.deadline}
                   </td>
                   <td className=" hidden px-6 py-4  border-gray-200 text-center  items-center justify-center">
                     <button

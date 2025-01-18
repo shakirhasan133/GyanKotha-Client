@@ -136,7 +136,7 @@ const UpdateClass = () => {
           </div>
 
           {/* Image */}
-          <div>
+          <div className="hidden">
             <label
               htmlFor="image"
               className="block text-muted-dark font-medium mb-2"
@@ -160,7 +160,7 @@ const UpdateClass = () => {
               type="submit"
               className="w-full bg-gradient-to-r from-primary-dark to-primary text-white font-medium py-2 rounded-md shadow-btn hover:from-primary hover:to-primary-dark transition-all"
             >
-              Add Class
+              Update Class
             </button>
           </div>
         </form>

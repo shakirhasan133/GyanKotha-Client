@@ -1,16 +1,57 @@
 import { useState } from "react";
 import UseAuth from "../../Hooks/UseAuth";
+import LoadingPage from "./../LoadingPage";
+import { useMutation } from "@tanstack/react-query";
+import UseAxiosSecure from "./../../Hooks/UseAxiosSecure";
+import Swal from "sweetalert2";
 
 const ApplyToTeach = () => {
-  const { user } = UseAuth();
-  console.log(user);
+  const { user, loading } = UseAuth();
+  const [Experience, setExperience] = useState("");
+  const [Category, setCategory] = useState("");
+  const [title, setTitle] = useState("");
 
-  const [formData, setFormData] = useState({
-    name: user?.displayName,
-    email: user?.email,
-    experience: "",
-    title: "",
-    category: "",
+  const axiosSecure = UseAxiosSecure();
+
+  const addTeacher = useMutation({
+    mutationFn: async (teacherData) => {
+      try {
+        const { data } = await axiosSecure.post("/addTeacher", teacherData);
+        return data;
+      } catch (error) {
+        console.log(error);
+
+        throw { message: "An unknown error occurred" };
+      }
+    },
+    onSuccess: (data) => {
+      console.log("Response from server:", data);
+
+      if (data?.status === 320) {
+        Swal.fire({
+          title: "Error",
+          text: data?.message || "Teacher already exists or request pending",
+          icon: "error",
+        });
+      } else {
+        Swal.fire({
+          title: "Success",
+          text: "Request successfully sent!",
+          icon: "success",
+        });
+      }
+    },
+    onError: (error) => {
+      console.error("Error occurred:", error);
+
+      const errorMessage =
+        error?.message || "Something went wrong. Please try again.";
+      Swal.fire({
+        title: "Error",
+        text: errorMessage,
+        icon: "error",
+      });
+    },
   });
 
   const categories = [
@@ -21,17 +62,27 @@ const ApplyToTeach = () => {
     "Cybersecurity",
   ];
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submitted Data:", formData);
-    // Implement submission logic here, such as sending data to the server
-    alert("Your application has been submitted for review!");
+    const teacherData = {
+      name: user?.displayName,
+      qualification: title,
+      image: user?.photoURL,
+      experience: Experience,
+      category: Category,
+      email: user?.email,
+    };
+
+    addTeacher.mutate(teacherData);
   };
+
+  if (!user) {
+    return <LoadingPage></LoadingPage>;
+  }
+
+  if (loading) {
+    return <LoadingPage></LoadingPage>;
+  }
 
   return (
     <div className="min-h-screen bg-light flex items-center justify-center md:py-10">
@@ -50,7 +101,7 @@ const ApplyToTeach = () => {
           <input
             type="text"
             name="name"
-            value={formData.name}
+            value={user?.displayName}
             readOnly
             className="w-full px-4 py-2 border rounded-md bg-gray-100 text-gray-600 cursor-not-allowed"
           />
@@ -62,7 +113,7 @@ const ApplyToTeach = () => {
           <input
             type="email"
             name="email"
-            value={formData.email}
+            value={user?.email}
             readOnly
             className="w-full px-4 py-2 border rounded-md bg-gray-100 text-gray-600 cursor-not-allowed"
           />
@@ -75,8 +126,8 @@ const ApplyToTeach = () => {
           </label>
           <select
             name="experience"
-            value={formData.experience}
-            onChange={handleChange}
+            // value={formData.experience}
+            onChange={(e) => setExperience(e.target.value)}
             required
             className="w-full px-4 py-2 border rounded-md bg-gray-50"
           >
@@ -93,8 +144,8 @@ const ApplyToTeach = () => {
           <input
             type="text"
             name="title"
-            value={formData.title}
-            onChange={handleChange}
+            // value={formData.title}
+            onChange={(e) => setTitle(e.target.value)}
             required
             placeholder="Enter your title (e.g., Full-Stack Developer)"
             className="w-full px-4 py-2 border rounded-md"
@@ -108,8 +159,8 @@ const ApplyToTeach = () => {
           </label>
           <select
             name="category"
-            value={formData.category}
-            onChange={handleChange}
+            // value={formData.category}
+            onChange={(e) => setCategory(e.target.value)}
             required
             className="w-full px-4 py-2 border rounded-md bg-gray-50"
           >

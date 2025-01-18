@@ -1,37 +1,23 @@
+import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
 
 const TeacherRequest = () => {
-  const [requests, setRequests] = useState([]);
+  const axiosSecure = UseAxiosSecure();
 
-  useEffect(() => {
-    // Fetch all teacher requests
-    fetch("/TeacherRequests.json")
-      .then((res) => res.json())
-      .then((data) => setRequests(data));
-  }, []);
+  const { data: requests = [] } = useQuery({
+    queryKey: ["teacherRequest"],
+    queryFn: async () => {
+      const { data } = await axiosSecure("/teachersRequest");
+      return data;
+    },
+  });
 
-  const handleApprove = (id) => {
-    console.log("Approved request with ID:", id);
-    alert("Teacher request approved!");
-    setRequests((prev) =>
-      prev.map((req) => (req.id === id ? { ...req, status: "Approved" } : req))
-    );
-  };
+  // console.log(requests);
 
-  const handleReject = (id) => {
-    const confirmed = window.confirm(
-      "Are you sure you want to reject this request?"
-    );
-    if (confirmed) {
-      console.log("Rejected request with ID:", id);
-      alert("Teacher request rejected!");
-      setRequests((prev) =>
-        prev.map((req) =>
-          req.id === id ? { ...req, status: "Rejected" } : req
-        )
-      );
-    }
-  };
+  const handleApprove = (id) => {};
+
+  const handleReject = (id) => {};
 
   return (
     <div className="min-h-screen bg-bodyColor-light p-6">
@@ -52,7 +38,7 @@ const TeacherRequest = () => {
             </tr>
           </thead>
           <tbody>
-            {requests.map((request) => (
+            {requests?.map((request) => (
               <tr
                 key={request.id}
                 className="border-t hover:bg-bodyColor-soft transition-colors"
@@ -66,7 +52,7 @@ const TeacherRequest = () => {
                   />
                 </td>
                 <td className="py-3 px-4">{request.experience} years</td>
-                <td className="py-3 px-4">{request.title}</td>
+                <td className="py-3 px-4">{request.qualification}</td>
                 <td className="py-3 px-4">{request.category}</td>
                 <td className="py-3 px-4 font-semibold">
                   <span
