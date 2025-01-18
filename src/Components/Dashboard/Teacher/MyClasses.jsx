@@ -1,15 +1,20 @@
 import UseAuth from "../../../Hooks/UseAuth";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
 import LoadingPage from "../../../Pages/LoadingPage";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const MyClasses = () => {
   const { user } = UseAuth();
   const axiosSecure = UseAxiosSecure();
   const navigate = useNavigate();
 
-  const { data: Classes = [], isLoading } = useQuery({
+  const {
+    data: Classes = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["TeacherClass", user?.email],
     queryFn: async () => {
       const { data } = await axiosSecure(`/allClasses?email=${user?.email}`);
@@ -17,13 +22,56 @@ const MyClasses = () => {
     },
   });
 
+  // Delete Data
+  const DeleteClassData = useMutation({
+    mutationFn: async (id) => {
+      const { data } = await axiosSecure.delete(`/deleteClass/${id}`);
+      return data;
+    },
+    onSuccess: (data) => {
+      // console.log(data);
+      if (data.acknowledged) {
+        Swal.fire({
+          title: "Success",
+          text: "Class Deleted successfully",
+          icon: "success",
+        });
+      }
+      refetch();
+    },
+    onError: (error) => {
+      console.log(error);
+      Swal.fire({
+        title: "Error",
+        text: "Something went wrong !",
+        icon: "error",
+      });
+    },
+  });
+
   const handleUpdate = (id) => {
     navigate(`/dashboard/update-class/${id}`);
   };
 
-  const handleDelete = (id) => {};
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        DeleteClassData.mutate(id);
+      }
+    });
+  };
 
-  const handleSeeDetails = (id) => {};
+  const handleSeeDetails = (id) => {
+    navigate(`/dashboard/teacher-class-details/${id}`);
+  };
 
   if (isLoading) {
     return <LoadingPage></LoadingPage>;
@@ -75,19 +123,21 @@ const MyClasses = () => {
             </div>
 
             {/* Actions */}
-            <div className="flex gap-2 p-4">
-              <button
-                onClick={() => handleUpdate(classItem._id)}
-                className="flex-1 bg-primary-dark text-white font-medium py-2 rounded-md hover:bg-primary transition-colors"
-              >
-                Update
-              </button>
-              <button
-                onClick={() => handleDelete(classItem._id)}
-                className="flex-1 bg-error text-white font-medium py-2 rounded-md hover:bg-error-dark transition-colors"
-              >
-                Delete
-              </button>
+            <div className="flex flex-col gap-2 p-4">
+              <div className="flex items-center justify-center gap-2">
+                <button
+                  onClick={() => handleUpdate(classItem._id)}
+                  className="flex-1 bg-primary-dark text-white font-medium py-2 rounded-md hover:bg-primary transition-colors"
+                >
+                  Update
+                </button>
+                <button
+                  onClick={() => handleDelete(classItem._id)}
+                  className="flex-1 bg-error text-white font-medium py-2 rounded-md hover:bg-error-dark transition-colors"
+                >
+                  Delete
+                </button>
+              </div>
               <button
                 disabled={classItem.status === "Pending"}
                 onClick={() => handleSeeDetails(classItem._id)}

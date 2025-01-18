@@ -21,6 +21,7 @@ import AllUsers from "../Components/Dashboard/Admin/AllUsers";
 import AllClassData from "../Components/Dashboard/Admin/AllClassData";
 import AddReviewPage from "../Components/Dashboard/Teacher/AddReviewPage";
 import UpdateClass from "../Components/Dashboard/Teacher/UpdateClass";
+import ClassProgressAndAssignment from "../Components/Dashboard/Teacher/ClassProgressAndAssignment";
 
 export const router = createBrowserRouter([
   {
@@ -114,6 +115,14 @@ export const router = createBrowserRouter([
         element: (
           <TeacherRoutes>
             <UpdateClass></UpdateClass>
+          </TeacherRoutes>
+        ),
+      },
+      {
+        path: "teacher-class-details/:id",
+        element: (
+          <TeacherRoutes>
+            <ClassProgressAndAssignment></ClassProgressAndAssignment>
           </TeacherRoutes>
         ),
       },

@@ -12,7 +12,7 @@ const UpdateClass = () => {
   const axiosSecure = UseAxiosSecure();
   const { id } = useParams();
 
-  const { data: ClassData = [] } = useQuery({
+  const { data: ClassData = [], refetch } = useQuery({
     queryKey: ["ClassDataUpage", id],
     queryFn: async () => {
       const { data } = await axiosSecure(`/allClasses?id=${id}`);
@@ -42,6 +42,7 @@ const UpdateClass = () => {
         text: "The Course Added Successfully",
         icon: "success",
       });
+      refetch();
     },
     onError: (error) => {
       console.log(error);
@@ -57,7 +58,6 @@ const UpdateClass = () => {
     const imgURL = await ImageUpload(data);
     SetImageUrl(imgURL);
   };
-  console.log(imageUrl);
 
   const handleUpdateClass = (data) => {
     const { title, price, description } = data;
@@ -68,10 +68,7 @@ const UpdateClass = () => {
       description,
       image: imageUrl,
     };
-    // console.log(UpdateClassData);
-
     UpdateClassData.mutate(UClassData);
-    reset();
   };
 
   return (

@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1",
+    "title": "Introduction to Marketing",
+    "description": "Write a 1000-word essay on the fundamentals of marketing and its importance in business.",
+    "marks": 100,
+    "submits": 25,
+    "lastDate": "2025-02-10"
+  },
+  {
+    "id": "2",
+    "title": "Financial Accounting Basics",
+    "description": "Prepare a balance sheet for a hypothetical company for the year ending 2024.",
+    "marks": 80,
+    "submits": 18,
+    "lastDate": "2025-02-15"
+  },
+  {
+    "id": "3",
+    "title": "Business Ethics Case Study",
+    "description": "Analyze the given case study and provide ethical solutions for the outlined dilemmas.",
+    "marks": 70,
+    "submits": 22,
+    "lastDate": "2025-02-18"
+  },
+  {
+    "id": "4",
+    "title": "Operations Management Plan",
+    "description": "Create an operations management plan for a small manufacturing company.",
+    "marks": 90,
+    "submits": 30,
+    "lastDate": "2025-02-20"
+  },
+  {
+    "id": "5",
+    "title": "Digital Marketing Strategy",
+    "description": "Develop a comprehensive digital marketing strategy for a startup business.",
+    "marks": 95,
+    "submits": 27,
+    "lastDate": "2025-02-25"
+  }
+]

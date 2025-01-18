@@ -21,13 +21,13 @@ const MenuItem = ({ label, address, icon: Icon }) => {
         <NavLink
           to={address}
           className={({ isActive }) =>
-            `flex items-center justify-center ${
-              isActive ? "bg-primary rounded-md" : ""
+            `flex items-center justify-center my-2 ${
+              isActive ? "bg-primary rounded-md " : ""
             }`
           }
         >
           <ListItem
-            className="p-0 hover:bg-primary hover:text-[#ECF0F1] transition-colors duration-300"
+            className="p-0  hover:bg-primary hover:text-[#ECF0F1] transition-colors duration-300"
             selected={open === 1}
           >
             <AccordionHeader
