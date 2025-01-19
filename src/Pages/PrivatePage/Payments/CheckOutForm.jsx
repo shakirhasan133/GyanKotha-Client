@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
 import UseAuth from "../../../Hooks/UseAuth";
 import Swal from "sweetalert2";
+import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 const CheckOutForm = ({ id }) => {
   const stripe = useStripe();
@@ -12,7 +14,8 @@ const CheckOutForm = ({ id }) => {
   const axiosSecure = UseAxiosSecure();
   const [clientSecret, setClientSecret] = useState("");
   const { user } = UseAuth();
-  const [transactionId, setTransactionId] = useState();
+  //   const [transactionId, setTransactionId] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     axiosSecure
@@ -26,7 +29,23 @@ const CheckOutForm = ({ id }) => {
       });
   }, [axiosSecure, id]);
 
-  //   console.log(clientSecret);
+  //   Save Enrolled data to db
+  const AddToEnrolledStudents = useMutation({
+    mutationFn: async (enrolledData) => {
+      const { data } = await axiosSecure.post(
+        "/addToEnrolledStudents",
+        enrolledData
+      );
+      return data;
+    },
+    onSuccess: () => {
+      //   console.log(data);
+      navigate("/my-enroll-class");
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -70,14 +89,23 @@ const CheckOutForm = ({ id }) => {
     } else {
       console.log(paymentIntent);
       if (paymentIntent.status === "succeeded") {
-        setTransactionId(paymentIntent.id);
         Swal.fire({
           title: "Payment Successful",
           text: `Payment Success for amount ${
             paymentIntent.amount / 100
-          } TxnId : ${transactionId}`,
+          } TxnId : ${paymentIntent.id}`,
           icon: "success",
         });
+
+        const enrolledData = {
+          ClassId: id,
+          email: user?.email,
+          transaction_Id: paymentIntent.id,
+        };
+
+        console.log(enrolledData);
+
+        AddToEnrolledStudents.mutate(enrolledData);
       }
     }
   };
