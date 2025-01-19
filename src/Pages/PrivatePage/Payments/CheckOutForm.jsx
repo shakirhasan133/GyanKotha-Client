@@ -1,10 +1,33 @@
+/* eslint-disable react/prop-types */
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
+import UseAuth from "../../../Hooks/UseAuth";
+import Swal from "sweetalert2";
 
-const CheckOutForm = () => {
+const CheckOutForm = ({ id }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [error, setError] = useState("");
+  const axiosSecure = UseAxiosSecure();
+  const [clientSecret, setClientSecret] = useState("");
+  const { user } = UseAuth();
+  const [transactionId, setTransactionId] = useState();
+
+  useEffect(() => {
+    axiosSecure
+      .post("/create-payment-intent", { id })
+      .then(({ data }) => {
+        // console.log(data);
+        setClientSecret(data.ClientSecret);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [axiosSecure, id]);
+
+  //   console.log(clientSecret);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -29,6 +52,34 @@ const CheckOutForm = () => {
       console.log("[PaymentMethod]", paymentMethod);
       setError("");
     }
+
+    // Confirm payment
+
+    const { paymentIntent, error: confirmError } =
+      await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: card,
+          billing_details: {
+            name: user?.displayName || "Random",
+            email: user?.email || "Random",
+          },
+        },
+      });
+    if (confirmError) {
+      console.log(confirmError);
+    } else {
+      console.log(paymentIntent);
+      if (paymentIntent.status === "succeeded") {
+        setTransactionId(paymentIntent.id);
+        Swal.fire({
+          title: "Payment Successful",
+          text: `Payment Success for amount ${
+            paymentIntent.amount / 100
+          } TxnId : ${transactionId}`,
+          icon: "success",
+        });
+      }
+    }
   };
 
   return (
@@ -39,27 +90,29 @@ const CheckOutForm = () => {
           onSubmit={handleSubmit}
           className="flex flex-col justify-between "
         >
-          <div>
-            <CardElement
-              options={{
-                style: {
-                  base: {
-                    fontSize: "16px",
-                    color: "#424770",
-                    "::placeholder": {
-                      color: "#aab7c4",
+          {clientSecret && (
+            <div>
+              <CardElement
+                options={{
+                  style: {
+                    base: {
+                      fontSize: "16px",
+                      color: "#424770",
+                      "::placeholder": {
+                        color: "#aab7c4",
+                      },
+                    },
+                    invalid: {
+                      color: "#9e2146",
                     },
                   },
-                  invalid: {
-                    color: "#9e2146",
-                  },
-                },
-              }}
-            />
-          </div>
+                }}
+              />
+            </div>
+          )}
           <button
             type="submit"
-            disabled={!stripe}
+            disabled={!stripe || !clientSecret}
             className="w-full bg-primary-dark py-1 my-3 text-white"
           >
             Pay
