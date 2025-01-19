@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { FaUserTie } from "react-icons/fa";
 import { GoClock } from "react-icons/go";
@@ -6,23 +7,24 @@ import { IoLanguageOutline } from "react-icons/io5";
 import { MdOutlineSlowMotionVideo } from "react-icons/md";
 import { PiCertificateLight } from "react-icons/pi";
 import ReactStars from "react-rating-stars-component";
+import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
+import { useNavigate, useParams } from "react-router-dom";
+import LoadingPage from "../LoadingPage";
+
 const CourseDetails = () => {
-  const course = {
-    title:
-      "Finance & Investment Series: Learn to Budget and Calculate Your Net Worth",
-    image: "https://i.ibb.co/pbDP8H3/Full-Stack-Web-Development-Bootcamp.jpg", // Replace with the actual image URL
-    name: "Pamela Foster",
-    price: "420.38",
-    duration: "08 hr 15 mins",
-    lectures: 29,
-    level: "Secondary",
-    language: "English",
-    certificate: true,
-    description:
-      "This course helps you master budgeting techniques, calculate your net worth, and make informed financial decisions.",
-    enrolledStudents: 286,
-    rating: 4.9,
-  };
+  const axiosSecure = UseAxiosSecure();
+  const { id } = useParams();
+  const { data: course = [], isLoading } = useQuery({
+    queryKey: ["TeacherClass", id],
+    queryFn: async () => {
+      const { data } = await axiosSecure(`/allClasses?id=${id}`);
+      return data[0];
+    },
+  });
+  console.log(course);
+
+  const navigate = useNavigate();
+
   const {
     title,
     image,
@@ -34,16 +36,19 @@ const CourseDetails = () => {
     certificate,
     description,
     enrolledStudents,
+    teacherImage,
     rating,
   } = course;
 
   const [isEnrolled, setIsEnrolled] = useState(false);
 
   const handleEnroll = () => {
-    setIsEnrolled(true);
-    alert("You have successfully enrolled in this course!");
-    // Add any additional enrollment logic here
+    navigate(`/payments/${id}`);
   };
+
+  if (isLoading) {
+    return <LoadingPage></LoadingPage>;
+  }
 
   return (
     <section className="container mx-auto py-10">
@@ -60,8 +65,8 @@ const CourseDetails = () => {
             <div className="flex md:items-center gap-3 justify-between  flex-col md:flex-row md:justify-evenly md:gap-5">
               <div className="flex items-center  gap-3">
                 <img
-                  src={image}
-                  alt=""
+                  src={teacherImage}
+                  alt={name}
                   className="w-14 h-14 rounded-full border"
                 />
                 <h1>{name}</h1>
@@ -144,30 +149,38 @@ const CourseDetails = () => {
           {/* Enroll Button */}
           <button
             onClick={handleEnroll}
-            className={`w-2/3 mx-auto py-3 mt-4 ${
+            className={`btn w-2/3 mx-auto  ${
               isEnrolled
                 ? "bg-gray-400 cursor-not-allowed"
                 : "bg-primary hover:bg-primary-dark text-white"
-            } text-lg font-medium rounded-lg shadow-md transition-all`}
+            } text-xl  font-bold rounded-lg  transition-all`}
             disabled={isEnrolled}
           >
-            {isEnrolled ? "Enrolled" : "Enroll Now"}
+            {isEnrolled ? "Enrolled" : "Pay Now"}
           </button>
         </div>
       </div>
 
       {/* Course Description Section */}
       <div className="bg-white rounded-lg shadow-md mt-6 p-8">
-        <h3 className="text-2xl font-bold text-gray-800 mb-4">
-          Course Overview
-        </h3>
-        <p className="text-gray-600">{description}</p>
-        <p className="text-gray-600 mt-2">
-          <strong>Enrolled Students:</strong> {enrolledStudents}
-        </p>
-        <p className="text-yellow-500 mt-2">
-          <strong>Rating:</strong> {rating} ⭐
-        </p>
+        <div>
+          <h3 className="text-2xl font-bold text-gray-800 mb-4">
+            Course Overview
+          </h3>
+          <p className="text-gray-600">{description}</p>
+          <p className="text-gray-600 mt-2">
+            <strong>Enrolled Students:</strong> {enrolledStudents}
+          </p>
+          <p className="text-yellow-500 mt-2">
+            <strong>Rating:</strong> {rating} ⭐
+          </p>
+        </div>
+        {/* <div >
+          <h3 className="text-2xl font-bold text-gray-800 mt-4">
+            Course Description
+          </h3>
+          <p></p>
+        </div> */}
       </div>
     </section>
   );

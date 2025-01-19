@@ -1,31 +1,97 @@
-import { div } from "motion/react-client";
-import { useEffect, useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { RxCross1 } from "react-icons/rx";
+import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import Swal from "sweetalert2";
 
 const AllClassData = () => {
-  const [classes, setClasses] = useState([]);
+  const axiosSecure = UseAxiosSecure();
 
-  useEffect(() => {
-    // Simulating data fetch
-    fetch("/Classes.json")
-      .then((res) => res.json())
-      .then((data) => setClasses(data));
-  }, []);
+  const { data: classes = [], refetch } = useQuery({
+    queryKey: ["ClassDataAmin"],
+    queryFn: async () => {
+      const { data } = await axiosSecure("/allClasses");
+      return data;
+    },
+  });
 
-  const handleApprove = (id) => {
-    console.log(`Approving class with ID: ${id}`);
-    setClasses((prev) =>
-      prev.map((cls) => (cls._id === id ? { ...cls, status: "Approved" } : cls))
-    );
+  // console.log(classes);
+
+  const handleApprove = async (id) => {
+    try {
+      const { data } = await axiosSecure.patch(`/update-class-status/${id}`, {
+        request: "Approve",
+      });
+
+      console.log(data);
+      if (data.modifiedCount > 0) {
+        Swal.fire({
+          title: "Success",
+          text: "Status Updated Successfully",
+          icon: "success",
+        });
+        refetch();
+      } else {
+        Swal.fire({
+          title: "error",
+          text: "Something went wrong",
+          icon: "error",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+
+      Swal.fire({
+        title: "error",
+        text: "Something went wrong",
+        icon: "error",
+      });
+    }
   };
 
-  const handleReject = (id) => {
-    console.log(`Rejecting class with ID: ${id}`);
-    setClasses((prev) =>
-      prev.map((cls) => (cls._id === id ? { ...cls, status: "Rejected" } : cls))
-    );
+  const handleReject = async (id) => {
+    try {
+      const { data } = await axiosSecure.patch(`/update-class-status/${id}`, {
+        request: "Reject",
+      });
+      if (data.modifiedCount > 0) {
+        Swal.fire({
+          title: "Success",
+          text: "Status Updated Successfully",
+          icon: "success",
+        });
+        refetch();
+      }
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        title: "error",
+        text: "Something went wrong",
+        icon: "error",
+      });
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const { data } = await axiosSecure.delete(`/deleteClass/${id}`);
+      if (data.deletedCount > 0) {
+        Swal.fire({
+          title: "Success",
+          text: "Status Updated Successfully",
+          icon: "success",
+        });
+        refetch();
+      }
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        title: "error",
+        text: "Something went wrong",
+        icon: "error",
+      });
+    }
   };
 
   return (
@@ -62,15 +128,19 @@ const AllClassData = () => {
                   />
                 </td>
                 <td className="py-3 px-4">{classItem.email}</td>
+
                 <td className="py-3 px-4 text-sm text-muted">
-                  {classItem.description.slice(0, 50)}...
+                  {classItem.description && (
+                    <span>{classItem?.description.slice(0, 50)}...</span>
+                  )}
                 </td>
+
                 <td className="py-3 px-4 text-center space-x-2">
-                  {classItem.status === "approved" ? (
+                  {classItem.status === "Approved" ? (
                     <div className="flex items-center justify-end">
                       <button
                         className="bg-error  flex justify-end text-white px-4 py-2 rounded-md hover:bg-error-dark transition-colors"
-                        onClick={() => handleReject(classItem._id)}
+                        onClick={() => handleDelete(classItem._id)}
                       >
                         <MdDeleteForever></MdDeleteForever>
                       </button>

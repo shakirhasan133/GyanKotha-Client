@@ -22,6 +22,7 @@ import AllClassData from "../Components/Dashboard/Admin/AllClassData";
 import AddReviewPage from "../Components/Dashboard/Teacher/AddReviewPage";
 import UpdateClass from "../Components/Dashboard/Teacher/UpdateClass";
 import ClassProgressAndAssignment from "../Components/Dashboard/Teacher/ClassProgressAndAssignment";
+import Payment from "../Pages/PrivatePage/Payments/Payment";
 
 export const router = createBrowserRouter([
   {
@@ -56,10 +57,19 @@ export const router = createBrowserRouter([
       },
       // Course Details
       {
-        path: "/Details",
+        path: "/class-details/:id",
         element: (
           <PrivateRoutes>
             <CourseDetails></CourseDetails>,
+          </PrivateRoutes>
+        ),
+      },
+      // Payment
+      {
+        path: "/payments/:id",
+        element: (
+          <PrivateRoutes>
+            <Payment></Payment>,
           </PrivateRoutes>
         ),
       },

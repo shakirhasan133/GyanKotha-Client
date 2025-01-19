@@ -97,6 +97,23 @@ const AddClass = () => {
               required
             />
           </div>
+          {/* Image */}
+          <div>
+            <label
+              htmlFor="image"
+              className="block text-muted-dark font-medium mb-2"
+            >
+              Image
+            </label>
+            <input
+              onChange={(e) => handleImage(e.target.files[0])}
+              type="file"
+              id="image"
+              name="image"
+              className="w-full border border-light-dark rounded-md py-2 px-3 focus:outline-none focus:border-primary-dark"
+              required
+            />
+          </div>
 
           {/* Name (Non-editable) */}
           <div>
@@ -168,24 +185,6 @@ const AddClass = () => {
               className="w-full border border-light-dark rounded-md py-2 px-3 focus:outline-none focus:border-primary-dark"
               required
             ></textarea>
-          </div>
-
-          {/* Image */}
-          <div>
-            <label
-              htmlFor="image"
-              className="block text-muted-dark font-medium mb-2"
-            >
-              Image
-            </label>
-            <input
-              onChange={(e) => handleImage(e.target.files[0])}
-              type="file"
-              id="image"
-              name="image"
-              className="w-full border border-light-dark rounded-md py-2 px-3 focus:outline-none focus:border-primary-dark"
-              required
-            />
           </div>
 
           {/* Submit Button */}

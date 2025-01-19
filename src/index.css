@@ -48,3 +48,7 @@ Index {
   background-color: #005054;
   color: white;
 }
+
+.zCard {
+  z-index: 1;
+}

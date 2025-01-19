@@ -235,7 +235,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-secondary w-3/4 h-screen float-end absolute right-0">
+        <div className="md:hidden bg-secondary w-3/4 h-screen float-end absolute right-0 z-50">
           <ul className="flex flex-col  px-4 py-2 justify-center ">
             <li>
               <NavLink

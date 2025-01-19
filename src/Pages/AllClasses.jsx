@@ -2,6 +2,7 @@ import { useState } from "react";
 import useAxiosPublic from "../Hooks/UseAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import ReactPaginate from "react-paginate";
+import Button from "../Components/Shared/Button";
 
 const AllClasses = () => {
   const axiospublic = useAxiosPublic();
@@ -36,37 +37,48 @@ const AllClasses = () => {
           {currentItems?.map((cls) => (
             <div
               key={cls._id}
-              className="bg-white rounded-lg shadow-lg p-4 hover:shadow-xl transition-shadow"
+              className="bg-white flex flex-col justify-between rounded-lg shadow-lg p-4 hover:shadow-xl transition-shadow"
             >
               {/* Class Image */}
-              <img
-                src={cls.image}
-                alt={cls.title}
-                className="w-full border border-[#00203f] h-56 md:h-64 object-cover rounded-2xl mb-4"
-              />
-              {/* Title */}
-              <h3 className="text-lg font-semibold text-secondary mb-2">
-                {cls.title}
-              </h3>
-              {/* Teacher's Name */}
-              <p className="text-sm text-muted mb-2">
-                <span className="font-medium">Instructor:</span> {cls.name}
-              </p>
-              {/* Short Description */}
-              <p className="text-sm text-gray-600 mb-3 line-clamp-2">
-                {cls.description}
-              </p>
-              {/* Price and Enrolment */}
-              <div className="flex justify-between items-center mb-4">
-                <span className="text-primary font-semibold">${cls.price}</span>
-                <span className="text-muted text-sm">
-                  Enrolled: {cls.totalEnrolment}
-                </span>
+              <div>
+                <img
+                  src={cls.image}
+                  alt={cls.title}
+                  className="w-full border border-[#00203f] h-56 md:h-64 object-cover rounded-2xl mb-4"
+                />
+                {/* Title */}
+                <h3 className="text-lg font-semibold text-secondary mb-2">
+                  {cls.title}
+                </h3>
+                {/* Teacher's Name */}
+                <p className="text-sm text-muted mb-2">
+                  <span className="font-medium">Instructor:</span> {cls.name}
+                </p>
+                {/* Short Description */}
+                <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                  {cls.description}
+                </p>
+                {/* Price and Enrolment */}
+                <div className="flex justify-between items-center mb-4">
+                  <span className="text-primary font-semibold">
+                    ${cls.price}
+                  </span>
+                  <span className="text-muted text-sm">
+                    Enrolled: {cls.totalEnrolment}
+                  </span>
+                </div>
               </div>
               {/* Enroll Button */}
-              <button className="w-full bg-primary text-white py-2 rounded-lg hover:bg-primary-dark transition-all">
-                Enroll Now
-              </button>
+              <div className="w-full mx-auto">
+                <Button
+                  filled
+                  label={"Enroll Now"}
+                  address={`/class-details/${cls._id}`}
+                  overLapingClass={" py-2 text-center"}
+                >
+                  Enroll Now
+                </Button>
+              </div>
             </div>
           ))}
         </div>

@@ -8,7 +8,7 @@ import UseAuth from "./../Hooks/UseAuth";
 const Dashboard = () => {
   const { isSideMenuOpen } = UseAuth();
   return (
-    <div className="font-primary">
+    <div className="font-primary bg-bodyColor min-h-screen">
       <DashNav></DashNav>
       <div className="flex font-primary">
         <div className={`${isSideMenuOpen ? "w-3/12" : "w-0"} `}>

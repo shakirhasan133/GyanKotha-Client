@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const MyClasses = () => {
-  const { user } = UseAuth();
+  const { user, isSideMenuOpen } = UseAuth();
   const axiosSecure = UseAxiosSecure();
   const navigate = useNavigate();
 
@@ -82,48 +82,58 @@ const MyClasses = () => {
       <h1 className="text-3xl font-bold text-primary-dark mb-8 text-center">
         My Classes
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div
+        className={`${
+          isSideMenuOpen ? "lg:grid-cols-2" : "lg:grid-cols-3"
+        } grid grid-cols-1 md:grid-cols-2  gap-6`}
+      >
         {Classes.map((classItem) => (
           <div
             key={classItem.id}
-            className="bg-white border-2 shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300"
+            className="relative flex flex-col justify-between py-4 bg-white border-2 shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300"
           >
-            {/* Class Image */}
-            <img
-              src={classItem.image}
-              alt={classItem.title}
-              className="w-full h-56 md:h-64 object-cover object-top rounded-lg"
-            />
+            <div>
+              {/* Class Image */}
+              <div className="px-4 rounded-lg">
+                <img
+                  src={classItem.image}
+                  alt={classItem.title}
+                  className=" w-full h-56 md:h-64 object-cover object-top rounded-lg"
+                />
+              </div>
 
-            {/* Class Details */}
-            <div className="p-4">
-              <h3 className="text-xl font-bold text-gray-800 mb-2">
-                {classItem.title}
-              </h3>
-              <p className="text-primary-dark font-semibold  text-xl">
-                <span className="">Price:</span> ${" "}
-                <span className="text-success">{classItem.price}</span>
-              </p>
-              <p className="text-gray-600">
-                <span className="font-semibold text-accent">Description:</span>{" "}
-                {classItem.description}
-              </p>
-              <p className="text-gray-600 mt-2">
-                <span className="font-semibold">Status:</span>{" "}
-                <span
-                  className={`font-bold ${
-                    classItem.status === "Pending"
-                      ? "text-warning"
-                      : "text-success"
-                  }`}
-                >
-                  {classItem?.status}
-                </span>
-              </p>
+              {/* Class Details */}
+              <div className="p-4">
+                <h3 className="text-xl font-bold text-gray-800 mb-2">
+                  {classItem.title}
+                </h3>
+                <p className="text-primary-dark font-semibold  text-xl">
+                  <span className="">Price:</span> ${" "}
+                  <span className="text-success">{classItem.price}</span>
+                </p>
+                <p className="text-gray-600">
+                  <span className="font-semibold text-accent">
+                    Description:
+                  </span>{" "}
+                  {classItem.description && classItem.description.slice(60)}...
+                </p>
+                <p className=" mt-2 absolute top-2 right-4 bg-primary-darkest rounded-md text-white p-1">
+                  <span className="font-semibold">Status:</span>{" "}
+                  <span
+                    className={`font-bold ${
+                      classItem.status === "Pending"
+                        ? "text-warning"
+                        : "text-success"
+                    }`}
+                  >
+                    {classItem?.status}
+                  </span>
+                </p>
+              </div>
             </div>
 
             {/* Actions */}
-            <div className="flex flex-col gap-2 p-4">
+            <div className="flex flex-col gap-2 px-4">
               <div className="flex items-center justify-center gap-2">
                 <button
                   onClick={() => handleUpdate(classItem._id)}
