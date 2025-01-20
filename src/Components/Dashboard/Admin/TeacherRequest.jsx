@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
 import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
 import Swal from "sweetalert2";
+import UseAuth from "../../../Hooks/UseAuth";
 
 const TeacherRequest = () => {
   const axiosSecure = UseAxiosSecure();
+  const { user } = UseAuth();
 
   const { data: requests = [], refetch } = useQuery({
     queryKey: ["teacherRequest"],

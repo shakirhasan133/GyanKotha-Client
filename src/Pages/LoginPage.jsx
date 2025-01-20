@@ -4,12 +4,14 @@ import loginLottie from "../assets/loginLottie.json";
 import { useForm } from "react-hook-form";
 import UseAuth from "../Hooks/UseAuth";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { SaveUser } from "../Api/utils";
+import Swal from "sweetalert2";
 
 const LoginPage = () => {
   const { signInWithEmail, signInWithGoogleEmail } = UseAuth();
   const [error, setError] = useState("");
+  const location = useLocation();
   const from = location?.state || "/";
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
@@ -22,9 +24,32 @@ const LoginPage = () => {
 
     try {
       signInWithEmail(email, password)
-        .then((data) => {
-          console.log(data);
-          navigate(from);
+        .then(() => {
+          // console.log(data);
+          let timerInterval;
+          Swal.fire({
+            title: "Login Successful",
+            html: "Please wait <b></b> seconds to redirect.",
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: () => {
+              Swal.showLoading();
+              const timer = Swal.getPopup().querySelector("b");
+              timerInterval = setInterval(() => {
+                timer.textContent = `${(Swal.getTimerLeft() / 1000).toFixed(
+                  1
+                )}`;
+              }, 100);
+            },
+            willClose: () => {
+              clearInterval(timerInterval);
+            },
+          }).then((result) => {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+              navigate(from);
+            }
+          });
         })
         .catch((err) => {
           console.log(err);
@@ -42,7 +67,30 @@ const LoginPage = () => {
       .then(async (data) => {
         try {
           await SaveUser(data.user);
-          navigate(from);
+          let timerInterval;
+          Swal.fire({
+            title: "Login Successful",
+            html: "Please wait <b></b> seconds to redirect.",
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: () => {
+              Swal.showLoading();
+              const timer = Swal.getPopup().querySelector("b");
+              timerInterval = setInterval(() => {
+                timer.textContent = `${(Swal.getTimerLeft() / 1000).toFixed(
+                  1
+                )}`;
+              }, 100);
+            },
+            willClose: () => {
+              clearInterval(timerInterval);
+            },
+          }).then((result) => {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+              navigate(from);
+            }
+          });
         } catch (error) {
           console.log(error.message);
         }

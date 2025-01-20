@@ -9,16 +9,20 @@ const TestimonialCard = ({ testimonial }) => {
           src={testimonial?.image}
           alt={testimonial?.name}
           className="w-full h-full object-cover"
+          referrerPolicy="no-referrer"
         />
       </div>
       <FaQuoteLeft className="text-primary-light text-2xl mx-auto mb-2" />
-      <p className="text-sm text-gray-600 leading-relaxed mb-4">
-        {testimonial?.message}
+      <p
+        className=" text-gray-600 leading-relaxed mb-1"
+        title={testimonial?.textData}
+      >
+        {testimonial?.textData?.slice(0, 150)}...
       </p>
       <h3 className="text-lg font-semibold text-gray-800">
         {testimonial?.name}
       </h3>
-      <p className="text-sm text-primary">{testimonial?.designation}</p>
+      {/* <p className="text-sm text-primary">{testimonial?.designation}</p> */}
     </div>
   );
 };

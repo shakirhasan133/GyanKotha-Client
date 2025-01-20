@@ -3,13 +3,14 @@ import useAxiosPublic from "../Hooks/UseAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import ReactPaginate from "react-paginate";
 import Button from "../Components/Shared/Button";
+import LoadingPage from "./LoadingPage";
 
 const AllClasses = () => {
   const axiospublic = useAxiosPublic();
   const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = 6;
 
-  const { data: AllClasses = [] } = useQuery({
+  const { data: AllClasses = [], isLoading } = useQuery({
     queryKey: ["allClasses"],
     queryFn: async () => {
       const { data } = await axiospublic.get("/allClasses");
@@ -26,6 +27,10 @@ const AllClasses = () => {
     const newOffset = (event.selected * itemsPerPage) % AllClasses.length;
     setItemOffset(newOffset);
   };
+
+  if (isLoading) {
+    return <LoadingPage></LoadingPage>;
+  }
 
   return (
     <section className="bg-light py-10">
@@ -64,7 +69,7 @@ const AllClasses = () => {
                     ${cls.price}
                   </span>
                   <span className="text-muted text-sm">
-                    Enrolled: {cls.totalEnrolment}
+                    Enrolled: {cls.enrolledStudents}
                   </span>
                 </div>
               </div>

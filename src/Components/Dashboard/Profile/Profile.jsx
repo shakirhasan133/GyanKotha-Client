@@ -24,7 +24,7 @@ const Profile = () => {
             {user?.displayName}
           </h1>
           <p className="text-sm text-gray-500 mt-1">
-            Role: <span className="font-medium text-gray-600">{role}</span>
+            <span className="font-medium text-gray-600">{role}</span>
           </p>
         </div>
 

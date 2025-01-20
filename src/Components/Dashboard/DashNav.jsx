@@ -75,7 +75,7 @@ const DashNav = () => {
           </button>
           <div className="bg-primary rounded-full p-[2px] ">
             <img
-              className="w-8 rounded-full"
+              className="w-8 h-8 rounded-full"
               src={user?.photoURL}
               alt={user?.displayName}
             />

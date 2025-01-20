@@ -16,7 +16,7 @@ import { AuthContext } from "./AuthContext";
 
 // eslint-disable-next-line react/prop-types
 const AuthProvider = ({ children }) => {
-  const [Loading, setLoading] = useState(false);
+  const [Loading, setLoading] = useState(true);
   const [user, setUser] = useState({});
   const [error, setError] = useState("");
   // const AxiosSecure = UseAxiosSecure();
@@ -69,6 +69,7 @@ const AuthProvider = ({ children }) => {
             { withCredentials: true }
           );
           setUser(currentUser);
+          setLoading(false);
         } else {
           await axios.post(
             `${import.meta.env.VITE_API_URL}/logout`,
@@ -78,11 +79,12 @@ const AuthProvider = ({ children }) => {
             }
           );
           setUser(currentUser);
+          setLoading(false);
         }
       } catch (error) {
         console.log(error);
       }
-      setLoading(false);
+      // setLoading(false);
     });
     return () => unsubscribe();
   }, []);

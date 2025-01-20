@@ -28,7 +28,7 @@ const SkilledInstructor = () => {
           {instructors.map((instructor) => (
             <div
               key={instructor.id}
-              className=" p-6 text-center transform hover:scale-105 transition-transform duration-300 hover:border-primary hover:border hover:rounded-lg hover:bg-light"
+              className=" p-6 shadow-lg border border-primary rounded-md text-center transform hover:scale-105 transition-transform duration-300 hover:border-primary hover:border hover:rounded-lg hover:bg-light"
             >
               <img
                 src={instructor.image}

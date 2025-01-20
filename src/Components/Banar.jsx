@@ -60,7 +60,7 @@ const Banar = () => {
               Courses
             </p>
           </motion.div>
-          <div className="h-[100px] w-[100px] md:h-[130px] md:w-[130px] absolute top-[5%] md:top-[5%] right-4 md:-right-8 rounded-full bg-white flex flex-col justify-center items-center p-3 md:p-5">
+          <div className="h-[115px] w-[115px] md:h-[130px] md:w-[130px] absolute top-[5%] md:top-[5%] right-4 md:-right-8 rounded-full bg-white flex flex-col justify-center items-center p-3 md:p-5">
             <div className="flex items-center justify-center gap-1">
               <h1 className="text-xl md:text-4xl font-bold text-primary">
                 4.8

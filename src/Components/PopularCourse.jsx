@@ -8,7 +8,7 @@ import useAxiosPublic from "../Hooks/UseAxiosPublic";
 const PopularCourse = () => {
   const axiospublic = useAxiosPublic();
 
-  const { data: popularClass = [] } = useQuery({
+  const { data: popularClass = [], isLoading } = useQuery({
     queryKey: ["popularClass"],
     queryFn: async () => {
       const { data } = await axiospublic.get("/popularClass");
@@ -25,6 +25,9 @@ const PopularCourse = () => {
           subHeading={"Explore our Popular"}
           HeadingSpan={"Courses"}
         />
+        {isLoading && (
+          <span className="loading loading-dots loading-lg text-primary-darkest"></span>
+        )}
 
         {/* Carousel Component */}
         <Carousel

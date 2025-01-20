@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 const MyEnrollClassDetails = () => {
   const { id } = useParams(); // Get course ID from the URL
   const [assignments, setAssignments] = useState([]);
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit } = useForm();
   useEffect(() => {
     // Simulate fetching assignments for the course
     fetch(`/assignments/${id}.json`) // Replace with your actual API endpoint

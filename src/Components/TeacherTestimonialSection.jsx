@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import TestimonialCard from "./TestimonialCard";
@@ -24,8 +22,8 @@ const TeacherTestimonialSection = () => {
       <div className="container mx-auto rounded-lg px-4 sm:px-6 lg:px-8">
         <Heading
           Heading={"What our"}
-          HeadingSpan={"Teacher say"}
-          subHeading={"Explore thinking of the teacher about us"}
+          HeadingSpan={"Student say"}
+          subHeading={"Explore thinking of the students about us"}
         ></Heading>
 
         <div>

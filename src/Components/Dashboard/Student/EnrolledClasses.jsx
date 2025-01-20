@@ -29,6 +29,16 @@ const EnrolledClasses = () => {
     return <LoadingPage></LoadingPage>;
   }
 
+  if (classes.length === 0) {
+    return (
+      <div className="flex items-center justify-center min-h-[80vh]">
+        <h1 className="text-primary-dark font-bold md:text-3xl text-xl">
+          No Data Found
+        </h1>
+      </div>
+    );
+  }
+
   return (
     <div
       className={`grid grid-cols-1 md:grid-cols-2 ${

@@ -7,7 +7,8 @@ import UseAuth from "../Hooks/UseAuth";
 import { useState } from "react";
 import { ImageUpload, SaveUser } from "../Api/utils";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
 const RegisterPage = () => {
   const {
@@ -19,8 +20,11 @@ const RegisterPage = () => {
   } = UseAuth();
   const { register, handleSubmit } = useForm();
   const [image, setImage] = useState("");
+  const location = useLocation();
   const from = location?.state || "/";
   const navigate = useNavigate();
+  const [isError, setIsError] = useState("");
+  const [isShowPass, setIsShowpass] = useState(false);
 
   //
   const handleImage = async (data) => {
@@ -30,20 +34,44 @@ const RegisterPage = () => {
 
   const handleSignUp = (data) => {
     const { fullName, email, password } = data;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+
+    if (!passwordRegex.test(password)) {
+      setIsError(
+        "Password must be at lest one upper case, one lowercase, and six character"
+      );
+      return;
+    }
 
     signUpWithEmail(email, password)
       .then(async (data) => {
         await updateUserData(fullName, image);
         try {
           await SaveUser(data.user);
+          let timerInterval;
           Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Sign up Successful",
-            showConfirmButton: false,
-            timer: 1500,
+            title: "Login Successful",
+            html: "Please wait <b></b> seconds to redirect.",
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: () => {
+              Swal.showLoading();
+              const timer = Swal.getPopup().querySelector("b");
+              timerInterval = setInterval(() => {
+                timer.textContent = `${(Swal.getTimerLeft() / 1000).toFixed(
+                  1
+                )}`;
+              }, 100);
+            },
+            willClose: () => {
+              clearInterval(timerInterval);
+            },
+          }).then((result) => {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+              navigate(from);
+            }
           });
-          navigate(from);
         } catch (error) {
           console.log(error.message);
         }
@@ -59,7 +87,30 @@ const RegisterPage = () => {
       .then(async (data) => {
         try {
           await SaveUser(data.user);
-          navigate(from);
+          let timerInterval;
+          Swal.fire({
+            title: "Login Successful",
+            html: "Please wait <b></b> seconds to redirect.",
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: () => {
+              Swal.showLoading();
+              const timer = Swal.getPopup().querySelector("b");
+              timerInterval = setInterval(() => {
+                timer.textContent = `${(Swal.getTimerLeft() / 1000).toFixed(
+                  1
+                )}`;
+              }, 100);
+            },
+            willClose: () => {
+              clearInterval(timerInterval);
+            },
+          }).then((result) => {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+              navigate(from);
+            }
+          });
         } catch (error) {
           console.log(error.message);
         }
@@ -115,7 +166,7 @@ const RegisterPage = () => {
               />
             </div>
 
-            <div className="mb-6">
+            <div className="mb-6 relative">
               <label
                 htmlFor="password"
                 className="block text-sm font-medium text-gray-700"
@@ -124,11 +175,21 @@ const RegisterPage = () => {
               </label>
               <input
                 {...register("password", { required: true })}
-                type="password"
+                type={isShowPass ? "text" : "password"}
                 id="password"
                 placeholder="Enter your password"
                 className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
               />
+
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsShowpass(!isShowPass);
+                }}
+                className="absolute top-[56%] right-3"
+              >
+                {isShowPass ? <FaRegEye /> : <FaRegEyeSlash />}
+              </button>
             </div>
 
             <div className="mb-4">
@@ -145,6 +206,7 @@ const RegisterPage = () => {
               />
             </div>
             <p className="text-error pb-2">{error && error}</p>
+            <p className="text-error pb-2">{isError && isError}</p>
             <button
               type="submit"
               className="w-full bg-primary text-white py-2 rounded-md shadow hover:bg-primary-dark transition duration-300"

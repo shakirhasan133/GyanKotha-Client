@@ -75,7 +75,7 @@ const AllClassData = () => {
 
   const handleDelete = async (id) => {
     try {
-      const { data } = await axiosSecure.delete(`/deleteClass/${id}`);
+      const { data } = await axiosSecure.delete(`/deleteClassAdmin/${id}`);
       if (data.deletedCount > 0) {
         Swal.fire({
           title: "Success",
@@ -101,7 +101,7 @@ const AllClassData = () => {
       </h1>
 
       {/* Table Layout for Larger Devices */}
-      <div className="hidden lg:block overflow-x-auto">
+      <div className="overflow-x-auto">
         <table className="table-auto w-full bg-white shadow-lg rounded-lg">
           <thead className="bg-primary-dark text-white">
             <tr>

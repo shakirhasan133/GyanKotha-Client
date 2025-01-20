@@ -30,7 +30,7 @@ const ClassProgressAndAssignment = () => {
   });
 
   // Fetch class progress data
-  const { data: classStatistics, refetch: reloadStatistics } = useQuery({
+  const { data: classStatistics } = useQuery({
     queryKey: ["classStatistics", id],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/ClassStatsData?id=${id}`);
@@ -38,7 +38,7 @@ const ClassProgressAndAssignment = () => {
     },
   });
   // Fetch class progress data
-  const { data: classProgress, refetch } = useQuery({
+  const { data: classProgress } = useQuery({
     queryKey: ["ClassProgess", id],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/allClasses?id=${id}`);
@@ -99,8 +99,8 @@ const ClassProgressAndAssignment = () => {
     });
   };
 
-  console.log(classStatistics.totalSubmitted.submits);
-  // const { CountAssignment } = classStatistics;
+  // console.log(classStatistics.totalSubmitted.submits);
+  // // const { CountAssignment } = classStatistics;
 
   return (
     <div className="min-h-screen p-6 bg-gray-100">

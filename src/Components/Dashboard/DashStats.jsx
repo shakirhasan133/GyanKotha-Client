@@ -2,7 +2,6 @@ import UseAuth from "../../Hooks/UseAuth";
 
 const DashStats = () => {
   const { user } = UseAuth();
-  console.log(user);
 
   return (
     <div>

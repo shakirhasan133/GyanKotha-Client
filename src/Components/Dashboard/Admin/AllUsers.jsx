@@ -4,7 +4,11 @@ import Swal from "sweetalert2";
 
 const AllUsers = () => {
   const axiosSecure = UseAxiosSecure();
-  const { data: users = [], refetch } = useQuery({
+  const {
+    data: users = [],
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: ["UserData"],
     queryFn: async () => {
       const { data } = await axiosSecure("/allUsers");
@@ -51,7 +55,13 @@ const AllUsers = () => {
               <th className="py-3 px-4 text-center">Actions</th>
             </tr>
           </thead>
+
           <tbody>
+            {isLoading && (
+              <div className="flex justify-center items-center min-h-[60vh]">
+                <span className="text-center text-primary-dark loading loading-dots loading-lg"></span>
+              </div>
+            )}
             {users.map((user) => (
               <tr
                 key={user.id}

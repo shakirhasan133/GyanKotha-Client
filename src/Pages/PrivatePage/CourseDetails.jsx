@@ -80,7 +80,7 @@ const CourseDetails = () => {
             </div>
             <div>
               <h3 className="flex items-center justify-center gap-1 sm:self-end">
-                {rating}
+                {Math.floor((rating * 10) / 10)}
                 <span className="">
                   <ReactStars size={30} value={rating} edit={false} />
                 </span>
@@ -172,7 +172,7 @@ const CourseDetails = () => {
             <strong>Enrolled Students:</strong> {enrolledStudents}
           </p>
           <p className="text-yellow-500 mt-2">
-            <strong>Rating:</strong> {rating} ⭐
+            <strong>Rating:</strong> {Math.floor((rating * 10) / 10)} ⭐
           </p>
         </div>
         {/* <div >
