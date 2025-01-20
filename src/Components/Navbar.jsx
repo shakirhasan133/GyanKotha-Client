@@ -4,6 +4,7 @@ import { IoMdCloseCircle } from "react-icons/io";
 import { IoHome } from "react-icons/io5";
 import { RiMenu3Fill } from "react-icons/ri";
 import { Link, NavLink } from "react-router-dom";
+import logo from "../assets/logo.png";
 
 import Swal from "sweetalert2";
 // import logo from "../assets/WhereIsItLogo.png";
@@ -79,7 +80,7 @@ const Navbar = () => {
                 animate={{ y: 0 }}
                 transition={{ delay: 0.3 }}
               >
-                {/* <img src={logo} alt="" className="w-9 h-9 rounded-full" /> */}
+                <img src={logo} alt="" className="w-9 h-9 rounded-full" />
               </motion.div>
               <span className="text-xl font-bold text-primary">GyanKotha</span>
             </Link>
@@ -183,7 +184,7 @@ const Navbar = () => {
                     />
                   </button>
                   <button
-                    className="hidden md:block p-2 text-primary-darkest font-medium rounded-md hover:bg-primary-dark hover:text-light transition"
+                    className="hidden  p-2 text-primary-darkest font-medium rounded-md hover:bg-primary-dark hover:text-light transition"
                     onClick={handleSignOut}
                   >
                     Log out
@@ -315,7 +316,7 @@ const Navbar = () => {
                   {user?.displayName}
                 </h1>
                 <button
-                  className="px-4 py-2 text-primary-darkest w-full bg-primary font-medium rounded-md  hover:text-primary-light transition"
+                  className=" px-4 py-2 text-primary-darkest w-full bg-primary font-medium rounded-md  hover:text-primary-light transition"
                   onClick={handleSignOut}
                 >
                   Log Out

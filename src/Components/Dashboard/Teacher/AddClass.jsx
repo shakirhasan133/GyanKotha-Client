@@ -12,6 +12,7 @@ const AddClass = () => {
   const [imageUrl, SetImageUrl] = useState("");
   const axiosSecure = UseAxiosSecure();
   const [buttonDisabled, setButtonDisabled] = useState(true);
+
   const AddClassData = useMutation({
     mutationFn: async (ClassData) => {
       const { data } = await axiosSecure.post("/addCourse", ClassData);

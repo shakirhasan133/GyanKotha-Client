@@ -21,7 +21,7 @@ const PopularCourse = () => {
       <div className="container mx-auto rounded-lg px-4 sm:px-6 lg:px-8">
         {/* Heading Component */}
         <Heading
-          Heading={"Popular Courses"}
+          Heading={"Popular"}
           subHeading={"Explore our Popular"}
           HeadingSpan={"Courses"}
         />

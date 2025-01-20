@@ -151,7 +151,7 @@ const MyClasses = () => {
               <button
                 disabled={classItem.status === "Pending"}
                 onClick={() => handleSeeDetails(classItem._id)}
-                className="flex-1 bg-info text-white font-medium py-2 rounded-md hover:bg-info-dark transition-colors"
+                className="flex-1 btn bg-info text-white font-medium py-2 rounded-md hover:bg-info-dark transition-colors"
               >
                 See Details
               </button>

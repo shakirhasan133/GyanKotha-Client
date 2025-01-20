@@ -23,6 +23,7 @@ import AddReviewPage from "../Components/Dashboard/Teacher/AddReviewPage";
 import UpdateClass from "../Components/Dashboard/Teacher/UpdateClass";
 import ClassProgressAndAssignment from "../Components/Dashboard/Teacher/ClassProgressAndAssignment";
 import Payment from "../Pages/PrivatePage/Payments/Payment";
+import AssignmentsTable from "../Components/Dashboard/Student/AssignmentsTable";
 
 export const router = createBrowserRouter([
   {
@@ -64,6 +65,7 @@ export const router = createBrowserRouter([
           </PrivateRoutes>
         ),
       },
+
       // Payment
       {
         path: "/payments/:id",
@@ -92,6 +94,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoutes>
             <EnrolledClasses></EnrolledClasses>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "my-enroll-class-details/:id",
+        element: (
+          <PrivateRoutes>
+            <AssignmentsTable></AssignmentsTable>
           </PrivateRoutes>
         ),
       },

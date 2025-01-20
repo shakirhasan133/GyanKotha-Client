@@ -15,7 +15,7 @@ const CourseDetails = () => {
   const axiosSecure = UseAxiosSecure();
   const { id } = useParams();
   const { data: course = [], isLoading } = useQuery({
-    queryKey: ["TeacherClass", id],
+    queryKey: ["courseSingleData", id],
     queryFn: async () => {
       const { data } = await axiosSecure(`/allClasses?id=${id}`);
       return data[0];

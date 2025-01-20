@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 /* eslint-disable react/prop-types */
 const ClassCard = ({ classData }) => {
   return (
@@ -43,9 +45,12 @@ const ClassCard = ({ classData }) => {
         <span className="text-lg text-green-500 font-semibold">
           ${classData.price}
         </span>
-        <button className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-all">
+        <Link
+          to={`/class-details/${classData._id}`}
+          className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-all"
+        >
           View Details
-        </button>
+        </Link>
       </div>
     </div>
   );

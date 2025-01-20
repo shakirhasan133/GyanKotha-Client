@@ -1,10 +1,12 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { IoMdCloseCircle } from "react-icons/io";
+import { useForm } from "react-hook-form";
 
 const MyEnrollClassDetails = () => {
   const { id } = useParams(); // Get course ID from the URL
   const [assignments, setAssignments] = useState([]);
-
+  const { register, handleSubmit, reset } = useForm();
   useEffect(() => {
     // Simulate fetching assignments for the course
     fetch(`/assignments/${id}.json`) // Replace with your actual API endpoint
@@ -71,6 +73,102 @@ const MyEnrollClassDetails = () => {
                     </div>
                   </form>
                 </td>
+
+                {/* Modal Here */}
+
+                <dialog id="my_modal_4" className="modal">
+                  <div className="modal-box w-11/12 max-w-2xl relative">
+                    {/* Add Assignment Section */}
+                    <div className="bg-white p-6 ">
+                      <h2 className="text-xl font-bold text-gray-700 mb-6">
+                        Add New Assignment
+                      </h2>
+                      <form onSubmit={handleSubmit(handleSubmitAssignment)}>
+                        <div className="grid grid-cols-1 gap-4">
+                          <div className="">
+                            <label
+                              htmlFor="title"
+                              className="block text-sm font-medium text-gray-600 mb-2"
+                            >
+                              Assignment Title
+                            </label>
+                            <input
+                              type="text"
+                              id="title"
+                              {...register("title", { required: true })}
+                              className="w-full px-4 py-2 border rounded-lg"
+                              placeholder="Enter assignment title"
+                            />
+                          </div>
+
+                          <div className="md:flex items-center justify-between gap-2 w-full">
+                            <div>
+                              <label
+                                htmlFor="deadline"
+                                className="block text-sm font-medium text-gray-600 mb-2"
+                              >
+                                Deadline
+                              </label>
+                              <input
+                                type="date"
+                                id="deadline"
+                                {...register("deadline", { required: true })}
+                                className="w-full px-4 py-2 border rounded-lg"
+                              />
+                            </div>
+
+                            <div>
+                              <label
+                                htmlFor="marks"
+                                className="block text-sm font-medium text-gray-600 mb-2"
+                              >
+                                Total Marks
+                              </label>
+                              <input
+                                type="number"
+                                id="marks"
+                                {...register("marks", { required: true })}
+                                className="w-full px-4 py-2 border rounded-lg"
+                              />
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="mt-4">
+                          <label
+                            htmlFor="description"
+                            className="block text-sm font-medium text-gray-600 mb-2"
+                          >
+                            Assignment Description
+                          </label>
+                          <textarea
+                            id="description"
+                            {...register("description", { required: true })}
+                            rows="4"
+                            className="w-full px-4 py-2 border rounded-lg"
+                            placeholder="Enter assignment description"
+                          ></textarea>
+                        </div>
+
+                        <button
+                          type="submit"
+                          className="mt-6 px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
+                        >
+                          Add Assignment
+                        </button>
+                      </form>
+                    </div>
+
+                    <div className="modal-action">
+                      <form method="dialog">
+                        {/* if there is a button, it will close the modal */}
+                        <button className="  absolute top-4 right-4  ">
+                          <IoMdCloseCircle className="text-4xl text-error" />
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </dialog>
               </tr>
             ))}
           </tbody>

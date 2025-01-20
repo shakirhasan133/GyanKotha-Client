@@ -40,7 +40,7 @@ const CheckOutForm = ({ id }) => {
     },
     onSuccess: () => {
       //   console.log(data);
-      navigate("/my-enroll-class");
+      navigate("/dashboard/my-enroll-class");
     },
     onError: (error) => {
       console.log(error);
@@ -113,7 +113,7 @@ const CheckOutForm = ({ id }) => {
   return (
     <div className="container mx-auto min-h-screen flex items-center justify-center">
       <div className=" w-full mx-3 md:mx-0 md:w-2/4 bg-white border-2  h-[200px] p-5 rounded-lg space-y-5">
-        <h1 className="text-primary text-2xl font-bold">Total Payment</h1>
+        <h1 className="text-primary text-2xl font-bold">Card info</h1>
         <form
           onSubmit={handleSubmit}
           className="flex flex-col justify-between "

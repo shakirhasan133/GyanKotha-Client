@@ -30,6 +30,14 @@ const ClassProgressAndAssignment = () => {
   });
 
   // Fetch class progress data
+  const { data: classStatistics, refetch: reloadStatistics } = useQuery({
+    queryKey: ["classStatistics", id],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(`/ClassStatsData?id=${id}`);
+      return data;
+    },
+  });
+  // Fetch class progress data
   const { data: classProgress, refetch } = useQuery({
     queryKey: ["ClassProgess", id],
     queryFn: async () => {
@@ -91,6 +99,9 @@ const ClassProgressAndAssignment = () => {
     });
   };
 
+  console.log(classStatistics.totalSubmitted.submits);
+  // const { CountAssignment } = classStatistics;
+
   return (
     <div className="min-h-screen p-6 bg-gray-100">
       <h1 className="text-3xl font-bold text-primary mb-6 text-center">
@@ -105,7 +116,7 @@ const ClassProgressAndAssignment = () => {
             Total Enrollment
           </h2>
           <p className="text-3xl font-bold text-primary">
-            {classProgress?.enrolledStudents || 0}
+            {classStatistics?.EnrolledStudent.enrolledStudents || 0}
           </p>
         </div>
 
@@ -115,7 +126,7 @@ const ClassProgressAndAssignment = () => {
             Total Assignments
           </h2>
           <p className="text-3xl font-bold text-primary">
-            {classProgress?.totalAssignments || 0}
+            {classStatistics?.CountAssignment || 0}
           </p>
         </div>
 
@@ -125,7 +136,7 @@ const ClassProgressAndAssignment = () => {
             Total Assignment Submissions
           </h2>
           <p className="text-3xl font-bold text-primary">
-            {classProgress?.totalSubmissions || 0}
+            {classStatistics?.totalSubmitted?.submits || 0}
           </p>
         </div>
       </div>
