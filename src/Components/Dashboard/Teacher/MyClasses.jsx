@@ -124,7 +124,7 @@ const MyClasses = () => {
                       classItem.status === "Pending"
                         ? "text-warning"
                         : "text-success"
-                    }`}
+                    } ${classItem.status === "Rejected" && "text-red-500"}`}
                   >
                     {classItem?.status}
                   </span>
@@ -149,7 +149,10 @@ const MyClasses = () => {
                 </button>
               </div>
               <button
-                disabled={classItem.status === "Pending"}
+                disabled={
+                  classItem.status === "Pending" ||
+                  classItem.status === "Rejected"
+                }
                 onClick={() => handleSeeDetails(classItem._id)}
                 className="flex-1 btn bg-info text-white font-medium py-2 rounded-md hover:bg-info-dark transition-colors"
               >

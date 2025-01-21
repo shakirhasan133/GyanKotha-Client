@@ -30,7 +30,7 @@ const ClassProgressAndAssignment = () => {
   });
 
   // Fetch class progress data
-  const { data: classStatistics } = useQuery({
+  const { data: classStatistics, refetch: latestState } = useQuery({
     queryKey: ["classStatistics", id],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/ClassStatsData?id=${id}`);
@@ -64,6 +64,7 @@ const ClassProgressAndAssignment = () => {
     },
     onSuccess: () => {
       updateass();
+      latestState();
       reset();
       document.getElementById("my_modal_4").close();
       Swal.fire({

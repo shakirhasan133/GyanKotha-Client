@@ -13,7 +13,7 @@ const AllClasses = () => {
   const { data: AllClasses = [], isLoading } = useQuery({
     queryKey: ["allClasses"],
     queryFn: async () => {
-      const { data } = await axiospublic.get("/allClasses");
+      const { data } = await axiospublic.get("/allClassesPublic");
       return data;
     },
   });
