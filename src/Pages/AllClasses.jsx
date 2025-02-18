@@ -8,6 +8,7 @@ import LoadingPage from "./LoadingPage";
 const AllClasses = () => {
   const axiospublic = useAxiosPublic();
   const [itemOffset, setItemOffset] = useState(0);
+  const [sortBy, setSortBy] = useState(""); // Sorting state
   const itemsPerPage = 6;
 
   const { data: AllClasses = [], isLoading } = useQuery({
@@ -18,18 +19,33 @@ const AllClasses = () => {
     },
   });
 
+  // Function to handle sorting
+  const handleSortChange = (e) => {
+    setSortBy(e.target.value);
+    setItemOffset(0); // Reset to first page when sorting
+  };
+
+  // Sorting logic
+  const sortedClasses = [...AllClasses].sort((a, b) => {
+    if (sortBy === "priceLow") return a.price - b.price;
+    if (sortBy === "priceHigh") return b.price - a.price;
+    if (sortBy === "name") return a.title.localeCompare(b.title);
+    if (sortBy === "enrolled") return b.enrolledStudents - a.enrolledStudents;
+    return 0;
+  });
+
+  // Pagination
   const endOffset = itemOffset + itemsPerPage;
-  console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-  const currentItems = AllClasses.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(AllClasses.length / itemsPerPage);
+  const currentItems = sortedClasses.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(sortedClasses.length / itemsPerPage);
 
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % AllClasses.length;
+    const newOffset = (event.selected * itemsPerPage) % sortedClasses.length;
     setItemOffset(newOffset);
   };
 
   if (isLoading) {
-    return <LoadingPage></LoadingPage>;
+    return <LoadingPage />;
   }
 
   return (
@@ -38,6 +54,24 @@ const AllClasses = () => {
         <h2 className="text-3xl font-bold text-secondary mb-8 text-center">
           All Classes
         </h2>
+
+        {/* Sorting Dropdown */}
+        <div className="mb-6 text-center">
+          <label className="text-secondary font-medium mr-2">Sort By:</label>
+          <select
+            value={sortBy}
+            onChange={handleSortChange}
+            className="border p-2 rounded-md"
+          >
+            <option value="">Default</option>
+            <option value="priceLow">Price: Low to High</option>
+            <option value="priceHigh">Price: High to Low</option>
+            <option value="name">Name (A-Z)</option>
+            <option value="enrolled">Most Enrolled</option>
+          </select>
+        </div>
+
+        {/* Classes List */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {currentItems?.map((cls) => (
             <div
@@ -87,12 +121,15 @@ const AllClasses = () => {
             </div>
           ))}
         </div>
+
         {AllClasses.length === 0 && (
           <p className="text-center text-gray-500 mt-8">
             No approved classes available at the moment.
           </p>
         )}
       </div>
+
+      {/* Pagination */}
       <ReactPaginate
         breakLabel="..."
         nextLabel="next >"
@@ -101,7 +138,7 @@ const AllClasses = () => {
         pageCount={pageCount}
         previousLabel="< previous"
         renderOnZeroPageCount={null}
-        containerClassName=" pagination flex items-center justify-center  w-full gap-3 my-5 text-md"
+        containerClassName="pagination flex items-center justify-center w-full gap-3 my-5 text-md"
         pageLinkClassName="page-num bg-primary-light p-2 rounded hover:bg-primary"
         previousClassName="bg-primary p-2 rounded font-bold text-light"
         nextLinkClassName="bg-primary p-2 rounded font-bold text-light"

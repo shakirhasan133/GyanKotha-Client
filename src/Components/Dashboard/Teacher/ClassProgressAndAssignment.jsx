@@ -46,11 +46,15 @@ const ClassProgressAndAssignment = () => {
     },
   });
   // Fetch class progress data
-  const { data: assignments, refetch: updateass } = useQuery({
+  const {
+    data: assignments,
+    refetch: updateass,
+    isLoading,
+  } = useQuery({
     queryKey: ["AssignmentData", user?.email],
     queryFn: async () => {
       const { data } = await axiosSecure.get(
-        `/AssignmentData?email=${user?.email}`
+        `/AssignmentDataSpecific?email=${user?.email}&id=${id}`
       );
       return data;
     },
@@ -178,7 +182,13 @@ const ClassProgressAndAssignment = () => {
               </th>
             </tr>
           </thead>
+
           <tbody>
+            {isLoading && (
+              <div className="min-h-[30vh]  flex justify-center  items-center">
+                <span className="loading loading-bars loading-xs bg-primary"></span>
+              </div>
+            )}
             {assignments?.length > 0 ? (
               assignments?.map((assignment) => (
                 <tr key={assignment.id} className="hover:bg-gray-50">
